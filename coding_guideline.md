@@ -1,10 +1,3 @@
-﻿Tanks
-=====
-
-Description
------------
-JY's Tanks
-
 Coding Guideline
 ----------------
 **类名**
