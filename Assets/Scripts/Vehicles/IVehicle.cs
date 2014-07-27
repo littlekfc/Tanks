@@ -11,6 +11,11 @@ namespace Vehicles
     public interface IVehicle
     {
         /// <summary>
+        /// Whether the vehicle can pick up items or not.
+        /// </summary>
+        bool CanPickUpItems { get; set; }
+
+        /// <summary>
         /// The main weapon.
         /// </summary>
         IWeapon MainWeapon { get; }
@@ -36,14 +41,19 @@ namespace Vehicles
         float Acceleration { get; set; }
 
         /// <summary>
-        /// The current orientation of the vehicle.
+        /// The acceleration used for braking.
         /// </summary>
-        Vector3 VehicleOrientation { get; }
+        float Decceleration { get; set; }
 
         /// <summary>
-        /// The current orientation of its weapon.
+        /// The current orientation(rotation) of the vehicle.
         /// </summary>
-        Vector3 WeaponOrientation { get; }
+        Quaternion VehicleOrientation { get; }
+
+        /// <summary>
+        /// The current orientation(rotation) of its weapon.
+        /// </summary>
+        Quaternion WeaponOrientation { get; }
 
         /// <summary>
         /// The turning speed of the vehicle itself.
@@ -75,7 +85,22 @@ namespace Vehicles
         void Move(Vector3 direction, bool is_local);
 
         /// <summary>
-        /// Stop the vehicle.
+        /// Stop the accelerating process.
+        /// </summary>
+        void CancelMoving();
+
+        /// <summary>
+        /// Stop the vehicle naturally.
+        /// </summary>
+        void Brake();
+
+        /// <summary>
+        /// Stop the braking process.
+        /// </summary>
+        void CancelBraking();
+
+        /// <summary>
+        /// Stop the vehicle completely.
         /// </summary>
         void Stop();
 
@@ -84,7 +109,12 @@ namespace Vehicles
         /// </summary>
         /// <param name="direction">The world target direction.</param>
         /// /// <param name="is_local">Whether the given direction is local or not.</param>
-        void StartPointWeaponAt(Vector3 direction, bool is_local);
+        void StartPointingWeaponAt(Vector3 direction, bool is_local);
+
+        /// <summary>
+        /// Stop the process of pointing the weapon to a given direction.
+        /// </summary>
+        void CancelPointingWeapon();
 
         /// <summary>
         /// Fire the weapon.
