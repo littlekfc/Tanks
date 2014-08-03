@@ -177,7 +177,13 @@ namespace Vehicles
             }
         }
 
-        public abstract void Move(Vector3 direction, bool is_local);
+        public void Move(Vector3 direction, bool is_local)
+        {
+            isAccelerating = true;
+            OnMove(direction, is_local);
+        }
+
+        protected abstract void OnMove(Vector3 direction, bool is_local);
 
         public void CancelMoving()
         {
