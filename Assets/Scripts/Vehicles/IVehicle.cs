@@ -90,12 +90,12 @@ namespace Vehicles
         void Move(Vector3 direction, bool is_local);
 
         /// <summary>
-        /// Stop the accelerating process.
+        /// Stop the accelerating and vehicle turning process.
         /// </summary>
         void CancelMoving();
 
         /// <summary>
-        /// Stop the vehicle naturally.
+        /// Start braking.
         /// </summary>
         void Brake();
 
@@ -105,7 +105,7 @@ namespace Vehicles
         void CancelBraking();
 
         /// <summary>
-        /// Stop the vehicle completely.
+        /// Stop the vehicle completely including weapon turning and vehicle turning.
         /// </summary>
         void Stop();
 

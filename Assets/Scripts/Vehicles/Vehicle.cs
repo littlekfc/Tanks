@@ -36,14 +36,14 @@ namespace Vehicles
         protected float currentAcceleration = 0.0f;
 
         /// <summary>
-        /// The current turning speed for the vehicle body.
+        /// The target vehicle orientation in world coordinate.
         /// </summary>
-        protected float currentVehicleTurningSpeed = 0.0f;
+        protected Quaternion targetVehicleOrientation = Quaternion.identity;
 
         /// <summary>
-        /// The current turning speed for the vehicle weapon.
+        /// The target weapon orientation in world coordinate.
         /// </summary>
-        protected float currentWeaponTurningSpeed = 0.0f;
+        protected Quaternion targetWeaponOrientation = Quaternion.identity;
 
         public bool canPickUpItems;
         public bool CanPickUpItems
@@ -185,12 +185,18 @@ namespace Vehicles
             }
         }
 
-        public abstract void Move(Vector3 direction, bool is_local);
+        public void Move(Vector3 direction, bool is_local)
+        {
+            isAccelerating = true;
+            OnMove(direction, is_local);
+        }
+
+        protected abstract void OnMove(Vector3 direction, bool is_local);
 
         public void CancelMoving()
         {
             isAccelerating = false;
-            currentVehicleTurningSpeed = 0.0f;
+            targetVehicleOrientation = VehicleOrientation;
         }
 
         public void Brake()
@@ -214,18 +220,28 @@ namespace Vehicles
             currentSpeed = 0.0f;
             currentAcceleration = 0.0f;
 
+            targetVehicleOrientation = VehicleOrientation;
+            targetWeaponOrientation = WeaponOrientation;
+
             isAccelerating = false;
             isBraking = false;
         }
 
         public void StartPointingWeaponAt(Vector3 direction, bool is_local)
         {
-            // TODO: provide a default implementation for this method here!
+            if (is_local)
+            {
+                targetWeaponOrientation = Quaternion.LookRotation(WeaponOrientation * direction);
+            }
+            else
+            {
+                targetWeaponOrientation = Quaternion.LookRotation(direction);
+            }
         }
 
         public void CancelPointingWeapon()
         {
-            currentWeaponTurningSpeed = 0.0f;
+            targetWeaponOrientation = WeaponOrientation;
         }
 
         public void Fire(bool is_main_weapon)
@@ -261,6 +277,9 @@ namespace Vehicles
         {
             gunObject = transform.FindChild("Gun").gameObject;
             bodyObject = transform.FindChild("Body").gameObject;
+
+            targetVehicleOrientation = VehicleOrientation;
+            targetWeaponOrientation = WeaponOrientation;
         }
 
         private void FixedUpdate()
@@ -297,21 +316,33 @@ namespace Vehicles
 
         private void TurnVehicle()
         {
-            if (currentVehicleTurningSpeed != 0.0f)
-            {
-                var turning_angle = currentVehicleTurningSpeed * Time.fixedDeltaTime;
+            var delta = targetVehicleOrientation * Quaternion.Inverse(VehicleOrientation);
+            float delta_angle = 0.0f;
+            Vector3 delta_axis = Vector3.zero;
+            delta.ToAngleAxis(out delta_angle, out delta_axis);
 
-                transform.Rotate(Vector3.up, turning_angle, Space.Self);
+            if (delta_angle > 0.0f)
+            {
+                var turning_angle = vehicleTurningSpeed * Time.fixedDeltaTime;
+                turning_angle = Mathf.Clamp(turning_angle, 0.0f, delta_angle);
+
+                transform.Rotate(delta_axis, turning_angle, Space.World);
             }
         }
 
         private void TurnWeapon()
         {
-            if (currentWeaponTurningSpeed != 0.0f)
-            {
-                var turning_angle = currentWeaponTurningSpeed * Time.fixedDeltaTime;
+            var delta = targetVehicleOrientation * Quaternion.Inverse(VehicleOrientation);
+            float delta_angle = 0.0f;
+            Vector3 delta_axis = Vector3.zero;
+            delta.ToAngleAxis(out delta_angle, out delta_axis);
 
-                gunObject.transform.Rotate(Vector3.up, turning_angle, Space.Self);
+            if (delta_angle > 0.0f)
+            {
+                var turning_angle = weaponTurningSpeed * Time.fixedDeltaTime;
+                turning_angle = Mathf.Clamp(turning_angle, 0.0f, delta_angle);
+
+                gunObject.transform.Rotate(delta_axis, turning_angle, Space.World);
             }
         }
     }
