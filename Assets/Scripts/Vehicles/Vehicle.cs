@@ -177,6 +177,14 @@ namespace Vehicles
             }
         }
 
+        public GameObject Object
+        {
+            get
+            {
+                return gameObject;
+            }
+        }
+
         public abstract void Move(Vector3 direction, bool is_local);
 
         public void CancelMoving()

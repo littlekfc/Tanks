@@ -76,6 +76,11 @@ namespace Vehicles
         float CurrentHealth { get; set; }
 
         /// <summary>
+        /// The game object for this vehicle.
+        /// </summary>
+        GameObject Object { get; }
+
+        /// <summary>
         /// Move the vehicle towards a given direction. 
         /// If the value of the given direction is larger than 0 on the direction of the vehicle's orientation, 
         /// the vehicle's engine will be on.
