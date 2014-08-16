@@ -41,7 +41,7 @@ namespace Players
         {
             Vector3 move_dir = Vector3.zero;
 
-            move_dir.y = Input.GetAxis("Vertical");
+            move_dir.z = Input.GetAxis("Vertical");
             move_dir.x = Input.GetAxis("Horizontal");
 
             Vehicle.Move(move_dir, true);

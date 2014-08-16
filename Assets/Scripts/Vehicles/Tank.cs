@@ -27,7 +27,8 @@ namespace Vehicles
             }
             else
             {
-                currentAcceleration = Mathf.Sign(local_dir.z) * acceleration;
+                var accelerating_dir = Mathf.Abs(local_dir.z) > 0.0f ? Mathf.Sign(local_dir.z) : 0.0f;
+                currentAcceleration = accelerating_dir * acceleration;
             }
         }
     }
