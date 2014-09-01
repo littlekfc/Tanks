@@ -23,7 +23,8 @@ namespace Vehicles
 
             if (Mathf.Abs(local_dir.x) > 0.0f)
             {
-                targetVehicleOrientation = Quaternion.AngleAxis(Mathf.Sign(local_dir.x) * vehicleTurningSpeed, transform.up);
+                targetVehicleTurningAngle = VehicleOrientation.eulerAngles.y + Mathf.Sign(local_dir.x) * vehicleTurningSpeed * Time.deltaTime;
+                currentAcceleration = 0.0f;
             }
             else
             {

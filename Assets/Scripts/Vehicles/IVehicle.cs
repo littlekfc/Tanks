@@ -110,11 +110,10 @@ namespace Vehicles
         void Stop();
 
         /// <summary>
-        /// Start pointing the weapon of the vehicle at a given direction.
+        /// Start pointing the weapon of the vehicle at a given position.
         /// </summary>
-        /// <param name="direction">The world target direction.</param>
-        /// /// <param name="is_local">Whether the given direction is local or not.</param>
-        void StartPointingWeaponAt(Vector3 direction, bool is_local);
+        /// <param name="direction">The target position in world coordinate.</param>
+        void StartPointingWeaponAt(Vector3 target_position);
 
         /// <summary>
         /// Stop the process of pointing the weapon to a given direction.

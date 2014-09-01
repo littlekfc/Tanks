@@ -13,12 +13,12 @@ namespace Vehicles
         /// <summary>
         /// The object representing the weapon.
         /// </summary>
-        private GameObject gunObject = null;
+        public GameObject gunObject = null;
 
         /// <summary>
         /// The object representing the vehicle body.
         /// </summary>
-        private GameObject bodyObject = null;
+        public GameObject bodyObject = null;
 
         /// <summary>
         /// Whether it is braking or not.
@@ -26,19 +26,14 @@ namespace Vehicles
         private bool isBraking = false;
 
         /// <summary>
-        /// Whether it is accelerating or not.
-        /// </summary>
-        private bool isAccelerating = false;
-
-        /// <summary>
         /// The value of the current acceleration.
         /// </summary>
         protected float currentAcceleration = 0.0f;
 
         /// <summary>
-        /// The target vehicle orientation in world coordinate.
+        /// The target vehicle turning angle in world coordinate.
         /// </summary>
-        protected Quaternion targetVehicleOrientation = Quaternion.identity;
+        protected float targetVehicleTurningAngle = 0.0f;
 
         /// <summary>
         /// The target weapon orientation in world coordinate.
@@ -187,7 +182,6 @@ namespace Vehicles
 
         public void Move(Vector3 direction, bool is_local)
         {
-            isAccelerating = true;
             OnMove(direction, is_local);
         }
 
@@ -195,8 +189,7 @@ namespace Vehicles
 
         public void CancelMoving()
         {
-            isAccelerating = false;
-            targetVehicleOrientation = VehicleOrientation;
+            targetVehicleTurningAngle = VehicleOrientation.eulerAngles.y;
         }
 
         public void Brake()
@@ -220,23 +213,18 @@ namespace Vehicles
             currentSpeed = 0.0f;
             currentAcceleration = 0.0f;
 
-            targetVehicleOrientation = VehicleOrientation;
+            targetVehicleTurningAngle = VehicleOrientation.eulerAngles.y;
             targetWeaponOrientation = WeaponOrientation;
 
-            isAccelerating = false;
             isBraking = false;
         }
 
-        public void StartPointingWeaponAt(Vector3 direction, bool is_local)
+        public void StartPointingWeaponAt(Vector3 target_position)
         {
-            if (is_local)
-            {
-                targetWeaponOrientation = Quaternion.LookRotation(WeaponOrientation * direction);
-            }
-            else
-            {
-                targetWeaponOrientation = Quaternion.LookRotation(direction);
-            }
+            var target_direction = target_position - transform.position;
+            target_direction.y = 0.0f;
+
+            targetWeaponOrientation = Quaternion.LookRotation(target_direction);
         }
 
         public void CancelPointingWeapon()
@@ -275,10 +263,7 @@ namespace Vehicles
 
         private void Awake()
         {
-            gunObject = transform.FindChild("Gun").gameObject;
-            bodyObject = transform.FindChild("Body").gameObject;
-
-            targetVehicleOrientation = VehicleOrientation;
+            targetVehicleTurningAngle = VehicleOrientation.eulerAngles.y;
             targetWeaponOrientation = WeaponOrientation;
         }
 
@@ -291,58 +276,64 @@ namespace Vehicles
 
         private void Move()
         {
-            if (currentAcceleration != 0.0f)
+            if (currentAcceleration != 0.0f && !isBraking)
             {
                 var moving_speed_increament = currentAcceleration * Time.fixedDeltaTime;
                 currentSpeed += moving_speed_increament;
-
-                if (isBraking || !isAccelerating)
-                {
-                    currentSpeed = Mathf.Clamp(currentSpeed, 0.0f, MaxSpeed);
-                }
-                else
-                {
-                    currentSpeed = Mathf.Clamp(currentSpeed, -MaxSpeed, MaxSpeed);
-                }
+                currentSpeed = Mathf.Clamp(currentSpeed, -MaxSpeed, MaxSpeed);
             }
 
             if (currentSpeed != 0.0f)
             {
-                var pos = transform.position;
-                pos += transform.forward * currentSpeed * Time.fixedDeltaTime;
-                transform.position = pos;
+                var total_decceleration = EnvironmentManager.Instance.environmentDrag;
+                if (isBraking)
+                    total_decceleration += decceleration;
+
+                var moving_speed_decreament = total_decceleration * Time.fixedDeltaTime;
+                moving_speed_decreament = Mathf.Clamp(moving_speed_decreament, 0.0f, Mathf.Abs(currentSpeed));
+
+                currentSpeed -= Mathf.Sign(currentSpeed) * moving_speed_decreament;
+
+                if (currentSpeed != 0.0f)
+                {
+                    var pos = transform.position;
+                    pos += transform.forward * currentSpeed * Time.fixedDeltaTime;
+                    transform.position = pos;
+                }
             }
         }
 
         private void TurnVehicle()
         {
-            var delta = targetVehicleOrientation * Quaternion.Inverse(VehicleOrientation);
-            float delta_angle = 0.0f;
-            Vector3 delta_axis = Vector3.zero;
-            delta.ToAngleAxis(out delta_angle, out delta_axis);
+            var delta_angle = targetVehicleTurningAngle - VehicleOrientation.eulerAngles.y;
+            var abs_delta_angle = Mathf.Abs(delta_angle);
 
-            if (delta_angle > 0.0f)
+            if (abs_delta_angle > 0.0f)
             {
-                var turning_angle = vehicleTurningSpeed * Time.fixedDeltaTime;
-                turning_angle = Mathf.Clamp(turning_angle, 0.0f, delta_angle);
+                var turning_angle = Mathf.Sign(delta_angle) * vehicleTurningSpeed * Time.fixedDeltaTime;
+                turning_angle = Mathf.Clamp(turning_angle, -abs_delta_angle, abs_delta_angle);
 
-                transform.Rotate(delta_axis, turning_angle, Space.World);
+                transform.Rotate(Vector3.up, turning_angle, Space.World);
             }
         }
 
         private void TurnWeapon()
         {
-            var delta = targetVehicleOrientation * Quaternion.Inverse(VehicleOrientation);
-            float delta_angle = 0.0f;
-            Vector3 delta_axis = Vector3.zero;
-            delta.ToAngleAxis(out delta_angle, out delta_axis);
+            var delta_angle = targetWeaponOrientation.eulerAngles.y - WeaponOrientation.eulerAngles.y;
+            var abs_delta_angle = Mathf.Abs(delta_angle);
 
-            if (delta_angle > 0.0f)
+            if (abs_delta_angle > 180.0f)
             {
-                var turning_angle = weaponTurningSpeed * Time.fixedDeltaTime;
-                turning_angle = Mathf.Clamp(turning_angle, 0.0f, delta_angle);
+                delta_angle = delta_angle - Mathf.Sign(delta_angle) * 360.0f;
+                abs_delta_angle = Mathf.Abs(delta_angle);
+            }
 
-                gunObject.transform.Rotate(delta_axis, turning_angle, Space.World);
+            if (abs_delta_angle > 0.0f)
+            {
+                var turning_angle = Mathf.Sign(delta_angle) * weaponTurningSpeed * Time.fixedDeltaTime;
+                turning_angle = Mathf.Clamp(turning_angle, -abs_delta_angle, abs_delta_angle);
+
+                gunObject.transform.Rotate(Vector3.up, turning_angle, Space.World);
             }
         }
     }

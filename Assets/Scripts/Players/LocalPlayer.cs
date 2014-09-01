@@ -11,6 +11,8 @@ namespace Players
     public class LocalPlayer : MonoBehaviour, IPlayer
     {
         public Vehicle vehicle;
+        public Camera naviCamera;
+        public LaserEffect laser;
 
         public IVehicle Vehicle
         {
@@ -23,10 +25,14 @@ namespace Players
             }
         }
 
+        void Awake()
+        {
+            Screen.showCursor = false;
+        }
+
         // Use this for initialization
         void Start()
         {
-
         }
 
         // Update is called once per frame
@@ -45,14 +51,19 @@ namespace Players
             move_dir.x = Input.GetAxis("Horizontal");
 
             Vehicle.Move(move_dir, true);
+
+            if (Input.GetButtonDown("Brake"))
+                Vehicle.Brake();
+            else if (Input.GetButtonUp("Brake"))
+                Vehicle.CancelBraking();
+
+            laser.Toggle(Input.GetButton("MainWeaponFire"));
         }
 
         void TurnTurret()
         {
-            var mouse_world_pos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.nearClipPlane));
-            var dir = mouse_world_pos - Vehicle.Object.transform.position;
-
-            Vehicle.StartPointingWeaponAt(dir, false);
+            var mouse_world_pos = naviCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, naviCamera.farClipPlane));
+            Vehicle.StartPointingWeaponAt(mouse_world_pos);
         }
 
         void Fire()
