@@ -57,7 +57,14 @@ namespace Players
             else if (Input.GetButtonUp("Brake"))
                 Vehicle.CancelBraking();
 
-            laser.Toggle(Input.GetButton("MainWeaponFire"));
+            if (Input.GetButtonDown("MainWeaponFire"))
+            {
+                laser.StartCharging();
+            }
+            else if (Input.GetButtonUp("MainWeaponFire"))
+            {
+                laser.StopCharging();
+            }
         }
 
         void TurnTurret()
