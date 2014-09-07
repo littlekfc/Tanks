@@ -34,8 +34,23 @@ namespace Weapons
         float StandardDamage { get; }
 
         /// <summary>
+        /// Whether the weapon is one-shot or not.
+        /// </summary>
+        bool IsOneShot { get; }
+
+        /// <summary>
+        /// The firing range of the weapon.
+        /// </summary>
+        float Range { get; }
+
+        /// <summary>
         /// Fire the weapon!
         /// </summary>
         void Fire();
+
+        /// <summary>
+        /// Stop firing the weapon. Only make sense for Non-one-shot weapons.
+        /// </summary>
+        void CeaseFire();
     }
 }

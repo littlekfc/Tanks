@@ -44,6 +44,50 @@ namespace Weapons
             get { return standardDamage; }
         }
 
+        public abstract bool IsOneShot
+        {
+            get;
+        }
+
+        public float range = 1000.0f;
+        public float Range
+        {
+            get
+            {
+                return range;
+            }
+        }
+
+        public LayerMask hitLayer;
+        protected int HitMask
+        {
+            get
+            {
+                return hitLayer.value;
+            }
+        }
+
+        protected bool IsCooledDown
+        {
+            get
+            {
+                return RemainingCDTime <= 0.0f;
+            }
+        }
+
+        protected void ResetCoolDownTimer()
+        {
+            remainingCDTime = 1 / FiringRate;
+        }
+
+        protected virtual void Update()
+        {
+            if (remainingCDTime > 0.0f)
+                remainingCDTime -= Time.deltaTime;
+        }
+
         public abstract void Fire();
+
+        public virtual void CeaseFire() { }
     }
 }

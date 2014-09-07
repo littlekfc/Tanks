@@ -2,13 +2,14 @@
 using System.Collections;
 
 using Weapons;
+using Attributes;
 
 namespace Vehicles
 {
     /// <summary>
     /// An interface for all the vehicles.
     /// </summary>
-    public interface IVehicle
+    public interface IVehicle : IDestroyable
     {
         /// <summary>
         /// Whether the vehicle can pick up items or not.
@@ -127,15 +128,9 @@ namespace Vehicles
         void Fire(bool is_main_weapon);
 
         /// <summary>
-        /// Called when the vehicle is hit.
+        /// Stop firing the weapon.
         /// </summary>
-        /// <param name="damage">The damage this vehicle is taking.</param>
-        void OnHit(float damage);
-
-        /// <summary>
-        /// Called when the vehicle is destroyed.
-        /// </summary>
-        void OnDie();
+        void CeaseFire(bool is_main_weapon);
 
         /// <summary>
         /// Called when picking up a weapon.

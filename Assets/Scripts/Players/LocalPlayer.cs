@@ -12,7 +12,6 @@ namespace Players
     {
         public Vehicle vehicle;
         public Camera naviCamera;
-        public LaserEffect laser;
 
         public IVehicle Vehicle
         {
@@ -56,15 +55,6 @@ namespace Players
                 Vehicle.Brake();
             else if (Input.GetButtonUp("Brake"))
                 Vehicle.CancelBraking();
-
-            if (Input.GetButtonDown("MainWeaponFire"))
-            {
-                laser.StartCharging();
-            }
-            else if (Input.GetButtonUp("MainWeaponFire"))
-            {
-                laser.StopCharging();
-            }
         }
 
         void TurnTurret()
@@ -79,10 +69,18 @@ namespace Players
             {
                 Vehicle.Fire(true);
             }
+            else if (Input.GetButtonUp("MainWeaponFire"))
+            {
+                Vehicle.CeaseFire(true);
+            }
             
             if (Input.GetButtonDown("SecondaryWeaponFire"))
             {
                 Vehicle.Fire(false);
+            }
+            else if (Input.GetButtonUp("SecondaryWeaponFire"))
+            {
+                Vehicle.CeaseFire(false);
             }
         }
     }

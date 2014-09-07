@@ -8,7 +8,7 @@ namespace Vehicles
     /// <summary>
     /// A base class for vehicles implementing the common parts of IVehicle interface.
     /// </summary>
-    public abstract class Vehicle : MonoBehaviour, IVehicle
+    public abstract class Vehicle : TObject, IVehicle
     {
         /// <summary>
         /// The object representing the weapon.
@@ -240,16 +240,16 @@ namespace Vehicles
                 secondaryWeapon.Fire();
         }
 
-        public void OnHit(float damage)
+        public void Hit(float damage)
         {
             currentHealth = Mathf.Clamp(currentHealth - damage, 0.0f, currentHealth);
             if (currentHealth == 0.0f)
             {
-                OnDie();
+                Kill();
             }
         }
 
-        public void OnDie()
+        public void Kill()
         {
             // TODO: Add animation and effect.
             Destroy(gameObject);
@@ -335,6 +335,14 @@ namespace Vehicles
 
                 gunObject.transform.Rotate(Vector3.up, turning_angle, Space.World);
             }
+        }
+
+        public void CeaseFire(bool is_main_weapon)
+        {
+            if (is_main_weapon)
+                MainWeapon.CeaseFire();
+            else
+                SecondaryWeapon.CeaseFire();
         }
     }
 }
