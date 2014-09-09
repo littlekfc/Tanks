@@ -21,6 +21,11 @@ namespace Vehicles
         public GameObject bodyObject = null;
 
         /// <summary>
+        /// The explosion effect prefab to use when the vehicle explodes.
+        /// </summary>
+        public GameObject explosion;
+
+        /// <summary>
         /// Whether it is braking or not.
         /// </summary>
         private bool isBraking = false;
@@ -39,6 +44,11 @@ namespace Vehicles
         /// The target weapon orientation in world coordinate.
         /// </summary>
         protected Quaternion targetWeaponOrientation = Quaternion.identity;
+
+        /// <summary>
+        /// Whether the vehicle is already destroyed or not.
+        /// </summary>
+        protected bool IsDestroyed { get; set; }
 
         public bool canPickUpItems;
         public bool CanPickUpItems
@@ -159,7 +169,7 @@ namespace Vehicles
             }
         }
 
-        private float currentHealth;
+        public float currentHealth;
         public float CurrentHealth
         {
             get
@@ -251,8 +261,15 @@ namespace Vehicles
 
         public void Kill()
         {
-            // TODO: Add animation and effect.
-            Destroy(gameObject);
+            if (!IsDestroyed)
+            {
+                IsDestroyed = true;
+
+                Instantiate(explosion, transform.position, transform.rotation);
+
+                // TODO: Add animation and effect.
+                Destroy(gameObject);
+            }
         }
 
         public void OnPickUp(Weapons.IWeapon weapon)
@@ -265,6 +282,10 @@ namespace Vehicles
         {
             targetVehicleTurningAngle = VehicleOrientation.eulerAngles.y;
             targetWeaponOrientation = WeaponOrientation;
+
+            CurrentHealth = MaxHealth;
+
+            IsDestroyed = false;
         }
 
         private void FixedUpdate()
