@@ -789,7 +789,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunObject: {fileID: 1071449544}
   bodyObject: {fileID: 902915988}
-  explosion: {fileID: 100000, guid: 7514e3ecececf4075a101607065d0ea5, type: 2}
+  explosion: {fileID: 100000, guid: d6d4fdc7e6b5cbe49b591d8d950f854c, type: 2}
   canPickUpItems: 0
   mainWeapon: {fileID: 0}
   secondaryWeapon: {fileID: 0}
@@ -2744,7 +2744,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunObject: {fileID: 1772390113}
   bodyObject: {fileID: 526952734}
-  explosion: {fileID: 100000, guid: 7514e3ecececf4075a101607065d0ea5, type: 2}
+  explosion: {fileID: 100000, guid: d6d4fdc7e6b5cbe49b591d8d950f854c, type: 2}
   canPickUpItems: 0
   mainWeapon: {fileID: 0}
   secondaryWeapon: {fileID: 0}
@@ -2888,7 +2888,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunObject: {fileID: 1139112903}
   bodyObject: {fileID: 1347948402}
-  explosion: {fileID: 100000, guid: 7514e3ecececf4075a101607065d0ea5, type: 2}
+  explosion: {fileID: 100000, guid: d6d4fdc7e6b5cbe49b591d8d950f854c, type: 2}
   canPickUpItems: 0
   mainWeapon: {fileID: 0}
   secondaryWeapon: {fileID: 0}
@@ -5410,7 +5410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunObject: {fileID: 1072763488}
   bodyObject: {fileID: 617305654}
-  explosion: {fileID: 100000, guid: 7514e3ecececf4075a101607065d0ea5, type: 2}
+  explosion: {fileID: 100000, guid: d6d4fdc7e6b5cbe49b591d8d950f854c, type: 2}
   canPickUpItems: 0
   mainWeapon: {fileID: 0}
   secondaryWeapon: {fileID: 0}
@@ -5824,6 +5824,14 @@ Prefab:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 8d6d1bf384229b046b93f70395f099c6, type: 2}
+    - target: {fileID: 10800000, guid: 140bead87ef2ecc41bf8aac59cc131da, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 140bead87ef2ecc41bf8aac59cc131da, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 140bead87ef2ecc41bf8aac59cc131da, type: 2}
   m_RootGameObject: {fileID: 251727701}
@@ -6341,7 +6349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunObject: {fileID: 64677121}
   bodyObject: {fileID: 2316993}
-  explosion: {fileID: 100000, guid: 7514e3ecececf4075a101607065d0ea5, type: 2}
+  explosion: {fileID: 100000, guid: d6d4fdc7e6b5cbe49b591d8d950f854c, type: 2}
   canPickUpItems: 0
   mainWeapon: {fileID: 0}
   secondaryWeapon: {fileID: 0}

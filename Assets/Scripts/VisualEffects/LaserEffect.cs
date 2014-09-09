@@ -13,7 +13,6 @@ namespace VisualEffects
         private LineRenderer laserLine;
         
         private Transform hitEffect;
-        private Light hitEffectLight;
 
         // Use this for initialization
         void Awake()
@@ -21,7 +20,6 @@ namespace VisualEffects
             laserLine = GetComponent<LineRenderer>();
 
             hitEffect = transform.FindChild("HitEffect");
-            hitEffectLight = hitEffect.light;
         }
 
         void Update()
@@ -39,7 +37,7 @@ namespace VisualEffects
             light.intensity = current_intensity;
 
             var current_hit_intensity = maxHitEffectLightIntensity * normalised_power_level;
-            hitEffectLight.intensity = current_hit_intensity;
+            hitEffect.light.intensity = current_hit_intensity;
 
             var current_hit_scale = maxHitEffectScale * normalised_power_level;
             hitEffect.localScale = new Vector3(current_hit_scale, current_hit_scale, current_hit_scale);
