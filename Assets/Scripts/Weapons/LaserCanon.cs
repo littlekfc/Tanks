@@ -41,6 +41,8 @@ namespace Weapons
 
         private bool isCharging = false;
 
+        private float gunTipLaserOffset = 0.0f;
+
         private LaserEffect laser;
         protected LaserEffect Laser
         {
@@ -69,6 +71,8 @@ namespace Weapons
             {
                 gunTip = transform;
             }
+
+            gunTipLaserOffset = Vector3.Distance(gunTip.position, Laser.transform.position);
         }
 
         void FixedUpdate()
@@ -91,6 +95,7 @@ namespace Weapons
                     }
                 }
 
+                laser_length -= gunTipLaserOffset;
                 Laser.SetLength(laser_length);
             }
         }

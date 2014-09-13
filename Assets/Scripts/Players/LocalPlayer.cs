@@ -2,6 +2,7 @@
 using System.Collections;
 
 using Vehicles;
+using UI;
 
 namespace Players
 {
@@ -12,6 +13,8 @@ namespace Players
     {
         public Vehicle vehicle;
         public Camera naviCamera;
+        public LayerMask navigationLayer;
+        public Transform cursor;
 
         public IVehicle Vehicle
         {
@@ -27,14 +30,11 @@ namespace Players
         void Awake()
         {
             Screen.showCursor = false;
+
+            if (cursor == null)
+                cursor = transform.FindChild("Cursor").transform;
         }
 
-        // Use this for initialization
-        void Start()
-        {
-        }
-
-        // Update is called once per frame
         void Update()
         {
             Move();
@@ -59,8 +59,13 @@ namespace Players
 
         void TurnTurret()
         {
-            var mouse_world_pos = naviCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, naviCamera.farClipPlane));
-            Vehicle.StartPointingWeaponAt(mouse_world_pos);
+            Ray camera_ray = naviCamera.ScreenPointToRay(Input.mousePosition);
+
+            RaycastHit hit;
+            if (Physics.Raycast(camera_ray, out hit, 1000.0f, navigationLayer))
+            {
+                Vehicle.StartPointingWeaponAt(hit.point);
+            }
         }
 
         void Fire()
