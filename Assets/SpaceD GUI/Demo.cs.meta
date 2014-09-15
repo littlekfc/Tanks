@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 0342ade4947c7a946b193e32ed5b0243
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - Skin: {fileID: 11400000, guid: bda4eb998b8b4b24b83885e44ccbdae7, type: 2}
+  - AnimationTile: {fileID: 2800000, guid: 6b0bc939cd2199d4a90f223cf173647d, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
