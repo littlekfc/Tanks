@@ -4,35 +4,26 @@ using System.Collections;
 using Vehicles;
 using UI;
 
-namespace Players
+namespace Agents
 {
     /// <summary>
-    /// A class responsible for handling local (human) player input.
+    /// A class responsible for handling human agent input.
     /// </summary>
-    public class LocalPlayer : MonoBehaviour, IPlayer
+    public class HumanAgent : Agent
     {
-        public Vehicle vehicle;
-        public Camera naviCamera;
-        public LayerMask navigationLayer;
-        public Transform cursor;
+        public LayerMask NavigationLayer { get; set; }
 
-        public IVehicle Vehicle
+        private Camera NavigationCamera
         {
             get
             {
-                if (vehicle == null)
-                    vehicle = GetComponent<Vehicle>();
-
-                return vehicle;
+                return Camera.main;
             }
         }
 
         void Awake()
         {
             Screen.showCursor = false;
-
-            if (cursor == null)
-                cursor = transform.FindChild("Cursor").transform;
         }
 
         void Update()
@@ -59,12 +50,14 @@ namespace Players
 
         void TurnTurret()
         {
-            Ray camera_ray = naviCamera.ScreenPointToRay(Input.mousePosition);
+            Ray camera_ray = NavigationCamera.ScreenPointToRay(Input.mousePosition);
 
             RaycastHit hit;
-            if (Physics.Raycast(camera_ray, out hit, 1000.0f, navigationLayer))
+            if (Physics.Raycast(camera_ray, out hit, 1000.0f, NavigationLayer))
             {
-                Vehicle.StartPointingWeaponAt(hit.point);
+                var offset = Vehicle.GunObject.position.y;
+
+                Vehicle.StartPointingWeaponAt(hit.point - camera_ray.direction * offset);
             }
         }
 

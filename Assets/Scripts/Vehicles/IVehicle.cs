@@ -12,6 +12,16 @@ namespace Vehicles
     public interface IVehicle : IDestroyable
     {
         /// <summary>
+        /// The gun object.
+        /// </summary>
+        Transform GunObject { get; }
+
+        /// <summary>
+        /// The body object.
+        /// </summary>
+        Transform BodyObject { get; }
+
+        /// <summary>
         /// Whether the vehicle can pick up items or not.
         /// </summary>
         bool CanPickUpItems { get; set; }
@@ -77,9 +87,9 @@ namespace Vehicles
         float CurrentHealth { get; set; }
 
         /// <summary>
-        /// The game object for this vehicle.
+        /// The object for this vehicle.
         /// </summary>
-        GameObject Object { get; }
+        TObject Object { get; }
 
         /// <summary>
         /// Move the vehicle towards a given direction. 

@@ -13,12 +13,26 @@ namespace Vehicles
         /// <summary>
         /// The object representing the weapon.
         /// </summary>
-        public GameObject gunObject = null;
+        public Transform gunObject = null;
+        public Transform GunObject
+        {
+            get
+            {
+                return gunObject;
+            }
+        }
 
         /// <summary>
         /// The object representing the vehicle body.
         /// </summary>
-        public GameObject bodyObject = null;
+        public Transform bodyObject = null;
+        public Transform BodyObject
+        {
+            get
+            {
+                return bodyObject;
+            }
+        }
 
         /// <summary>
         /// The explosion effect prefab to use when the vehicle explodes.
@@ -122,12 +136,12 @@ namespace Vehicles
 
         public Quaternion VehicleOrientation
         {
-            get { return bodyObject.transform.rotation; }
+            get { return bodyObject.rotation; }
         }
 
         public Quaternion WeaponOrientation
         {
-            get { return gunObject.transform.rotation; }
+            get { return gunObject.rotation; }
         }
 
         public float vehicleTurningSpeed;
@@ -182,11 +196,11 @@ namespace Vehicles
             }
         }
 
-        public GameObject Object
+        public TObject Object
         {
             get
             {
-                return gameObject;
+                return this;
             }
         }
 
@@ -231,7 +245,7 @@ namespace Vehicles
 
         public void StartPointingWeaponAt(Vector3 target_position)
         {
-            var target_direction = target_position - transform.position;
+            var target_direction = target_position - bodyObject.position;
             target_direction.y = 0.0f;
 
             targetWeaponOrientation = Quaternion.LookRotation(target_direction);
@@ -265,7 +279,7 @@ namespace Vehicles
             {
                 IsDestroyed = true;
 
-                Instantiate(explosion, transform.position, transform.rotation);
+                Instantiate(explosion, bodyObject.position, bodyObject.rotation);
 
                 // TODO: Add animation and effect.
                 Destroy(gameObject);
@@ -318,7 +332,7 @@ namespace Vehicles
                 if (currentSpeed != 0.0f)
                 {
                     var pos = transform.position;
-                    pos += transform.forward * currentSpeed * Time.fixedDeltaTime;
+                    pos += bodyObject.forward * currentSpeed * Time.fixedDeltaTime;
                     transform.position = pos;
                 }
             }
@@ -334,7 +348,7 @@ namespace Vehicles
                 var turning_angle = Mathf.Sign(delta_angle) * vehicleTurningSpeed * Time.fixedDeltaTime;
                 turning_angle = Mathf.Clamp(turning_angle, -abs_delta_angle, abs_delta_angle);
 
-                transform.Rotate(Vector3.up, turning_angle, Space.World);
+                bodyObject.Rotate(Vector3.up, turning_angle, Space.World);
             }
         }
 
@@ -354,7 +368,7 @@ namespace Vehicles
                 var turning_angle = Mathf.Sign(delta_angle) * weaponTurningSpeed * Time.fixedDeltaTime;
                 turning_angle = Mathf.Clamp(turning_angle, -abs_delta_angle, abs_delta_angle);
 
-                gunObject.transform.Rotate(Vector3.up, turning_angle, Space.World);
+                gunObject.Rotate(Vector3.up, turning_angle, Space.World);
             }
         }
 
@@ -362,7 +376,7 @@ namespace Vehicles
         {
             if (is_main_weapon)
                 MainWeapon.CeaseFire();
-            else
+            else if (SecondaryWeapon != null)
                 SecondaryWeapon.CeaseFire();
         }
     }

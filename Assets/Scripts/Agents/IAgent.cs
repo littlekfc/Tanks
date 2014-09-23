@@ -3,15 +3,15 @@ using System.Collections;
 
 using Vehicles;
 
-namespace Players
+namespace Agents
 {
     /// <summary>
-    /// An interface for all players.
+    /// An interface for all agents.
     /// </summary>
-    public interface IPlayer
+    public interface IAgent
     {
         /// <summary>
-        /// The vehicle this player is controlling.
+        /// The vehicle this agent is controlling.
         /// </summary>
         IVehicle Vehicle { get; }
     }
