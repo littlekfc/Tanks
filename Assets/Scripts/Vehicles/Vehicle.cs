@@ -64,6 +64,21 @@ namespace Vehicles
         /// </summary>
         protected bool IsDestroyed { get; set; }
 
+        /// <summary>
+        /// The current position of the vehicle.
+        /// </summary>
+        private Vector3 VehiclePosition
+        {
+            get
+            {
+                return transform.position;
+            }
+            set
+            {
+                transform.position = value;
+            }
+        }
+
         public bool canPickUpItems;
         public bool CanPickUpItems
         {
@@ -106,6 +121,7 @@ namespace Vehicles
         public float CurrentSpeed
         {
             get { return currentSpeed; }
+            private set { currentSpeed = value; }
         }
 
         public float acceleration;
@@ -137,11 +153,13 @@ namespace Vehicles
         public Quaternion VehicleOrientation
         {
             get { return bodyObject.rotation; }
+            private set { bodyObject.rotation = value; }
         }
 
         public Quaternion WeaponOrientation
         {
             get { return gunObject.rotation; }
+            private set { gunObject.rotation = value; }
         }
 
         public float vehicleTurningSpeed;
@@ -300,6 +318,8 @@ namespace Vehicles
             CurrentHealth = MaxHealth;
 
             IsDestroyed = false;
+
+            rigidbody.isKinematic = !photonView.isMine;
         }
 
         private void FixedUpdate()
@@ -378,6 +398,34 @@ namespace Vehicles
                 MainWeapon.CeaseFire();
             else if (SecondaryWeapon != null)
                 SecondaryWeapon.CeaseFire();
+        }
+
+        protected override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            base.OnPhotonSerializeView(stream, info);
+
+            if (stream.isWriting)
+            {
+                // Position and orientation.
+                stream.SendNext(VehiclePosition);
+                stream.SendNext(VehicleOrientation);
+                stream.SendNext(WeaponOrientation);
+                
+                // Status information.
+                stream.SendNext(CurrentHealth);
+                stream.SendNext(CurrentSpeed);
+            }
+            else if (stream.isReading)
+            {
+                // Position and orientation.
+                VehiclePosition = (Vector3)stream.ReceiveNext();
+                VehicleOrientation = (Quaternion)stream.ReceiveNext();
+                WeaponOrientation = (Quaternion)stream.ReceiveNext();
+
+                // Status information.
+                CurrentHealth = (float)stream.ReceiveNext();
+                CurrentSpeed = (float)stream.ReceiveNext();
+            }
         }
     }
 }

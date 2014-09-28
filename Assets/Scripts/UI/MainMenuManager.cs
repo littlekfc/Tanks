@@ -31,7 +31,7 @@ namespace UI
         private void OnReady()
         {
             ToggleWaiting(false);
-            Application.LoadLevel("Battle");
+            NetworkManager.Instance.LoadLevel("Battle");
         }
 
         private void OnCancelled()

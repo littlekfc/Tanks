@@ -3,6 +3,8 @@ using System.Collections;
 using System;
 
 using Dummy;
+using Players;
+using Battle;
 
 namespace Networking
 {
@@ -37,14 +39,39 @@ namespace Networking
             PhotonNetwork.ConnectUsingSettings(ApplicationInfo.Version);
         }
 
+        private void SetMyTeam(Team.TeamID id)
+        {
+            BattleManager.Instance.MyTeamID = id;
+
+            if (!PhotonNetwork.isMasterClient)
+                photonView.RPC("OnGameReady", PhotonTargets.MasterClient);
+        }
+
+        [RPC]
+        private void SetMyTeam(int id)
+        {
+            SetMyTeam((Team.TeamID)id);
+        }
+
+        #region Networking_Callbacks
         void OnPlayerJoined()
         {
             Debug.Log("Joined!!!!!!!!!!! Current players: " + PhotonNetwork.room.playerCount);
 
-            if (PhotonNetwork.room.playerCount == READY_PLAYER_COUNT)
-                if (onGameReady != null)
-                    onGameReady();
+            if (PhotonNetwork.room.playerCount == READY_PLAYER_COUNT && PhotonNetwork.isMasterClient)
+            {
+                SetMyTeam(Team.TeamID.BLUE);
+                photonView.RPC("SetMyTeam", PhotonNetwork.otherPlayers[0], Team.TeamID.RED);
+            }
         }
+
+        [RPC]
+        void OnGameReady()
+        {
+            if (onGameReady != null)
+                onGameReady();
+        }
+        #endregion
 
         #region PNU_Callbacks
         void OnJoinedLobby()
@@ -110,6 +137,18 @@ namespace Networking
                 return PhotonNetwork.LeaveRoom();
             else
                 return false;
+        }
+
+        public void LoadLevel(string level_name, bool is_sync = true)
+        {
+            PhotonNetwork.automaticallySyncScene = is_sync;
+            PhotonNetwork.LoadLevel(level_name);
+        }
+
+        public void LoadLevel(int level_id, bool is_sync = true)
+        {
+            PhotonNetwork.automaticallySyncScene = is_sync;
+            PhotonNetwork.LoadLevel(level_id);
         }
     }
 }
