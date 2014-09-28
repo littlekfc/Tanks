@@ -16,8 +16,8 @@ namespace Dummy
 
             if (vehicle != null)
             {
-                AgentFactory.Instance.AddAgentTo(vehicle, isAI);
-                if (!isAI)
+                var agent = AgentFactory.Instance.AddAgentTo(vehicle, isAI);
+                if (!isAI && agent is HumanAgent)
                     CameraManager.Instance.MountMainCameraAt(vehicle.Object);
             }
 
