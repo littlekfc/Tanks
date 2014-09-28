@@ -33,6 +33,7 @@ namespace Networking
         {
             base.Awake();
 
+            PhotonNetwork.automaticallySyncScene = true;
             photonView = PhotonView.Get(this);
 
             DontDestroyOnLoad(transform.parent);
@@ -145,13 +146,13 @@ namespace Networking
 
         public void LoadLevel(string level_name, bool is_sync = true)
         {
-            PhotonNetwork.automaticallySyncScene = is_sync;
+            //PhotonNetwork.automaticallySyncScene = is_sync;
             PhotonNetwork.LoadLevel(level_name);
         }
 
         public void LoadLevel(int level_id, bool is_sync = true)
         {
-            PhotonNetwork.automaticallySyncScene = is_sync;
+            //PhotonNetwork.automaticallySyncScene = is_sync;
             PhotonNetwork.LoadLevel(level_id);
         }
     }
