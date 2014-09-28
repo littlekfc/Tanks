@@ -10,7 +10,7 @@ namespace Dummy
     {
         public bool isAI;
 
-        void Start()
+        void Awake()
         {
             IVehicle vehicle = GetComponent<Vehicle>();
 
