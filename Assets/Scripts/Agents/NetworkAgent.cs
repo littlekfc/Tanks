@@ -47,6 +47,10 @@ namespace Agents
         void Update()
         {
             normalizedSyncProgress += Time.deltaTime / syncInterval;
+
+            Vehicle.VehiclePosition = InterpolatedVehiclePosition;
+            Vehicle.VehicleOrientation = InterpolatedVehicleOrientation;
+            Vehicle.WeaponOrientation = InterpolatedWeaponOrientation;
         }
 
         void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
