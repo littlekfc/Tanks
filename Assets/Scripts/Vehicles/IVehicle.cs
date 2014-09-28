@@ -22,6 +22,11 @@ namespace Vehicles
         Transform BodyObject { get; }
 
         /// <summary>
+        /// The current position of the vehicle.
+        /// </summary>
+        Vector3 VehiclePosition { get; set; }
+
+        /// <summary>
         /// Whether the vehicle can pick up items or not.
         /// </summary>
         bool CanPickUpItems { get; set; }
@@ -44,7 +49,7 @@ namespace Vehicles
         /// <summary>
         /// The current speed.
         /// </summary>
-        float CurrentSpeed { get; }
+        float CurrentSpeed { get; set; }
 
         /// <summary>
         /// The acceleration.
@@ -59,12 +64,12 @@ namespace Vehicles
         /// <summary>
         /// The current orientation(rotation) of the vehicle.
         /// </summary>
-        Quaternion VehicleOrientation { get; }
+        Quaternion VehicleOrientation { get; set; }
 
         /// <summary>
         /// The current orientation(rotation) of its weapon.
         /// </summary>
-        Quaternion WeaponOrientation { get; }
+        Quaternion WeaponOrientation { get; set; }
 
         /// <summary>
         /// The turning speed of the vehicle itself.

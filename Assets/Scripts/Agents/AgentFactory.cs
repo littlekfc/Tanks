@@ -46,6 +46,7 @@ namespace Agents
             }
 
             agent.Vehicle = vehicle;
+            agent.photonView.observed = agent;
 
             return agent;
         }

@@ -86,5 +86,20 @@ namespace Agents
                 Vehicle.CeaseFire(false);
             }
         }
+
+        void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.isWriting)
+            {
+                // Position and orientation.
+                stream.SendNext(Vehicle.VehiclePosition);
+                stream.SendNext(Vehicle.VehicleOrientation);
+                stream.SendNext(Vehicle.WeaponOrientation);
+
+                // Status information.
+                stream.SendNext(Vehicle.CurrentHealth);
+                //stream.SendNext(CurrentSpeed);
+            }
+        }
     }
 }
