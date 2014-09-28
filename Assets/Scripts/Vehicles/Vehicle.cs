@@ -413,7 +413,7 @@ namespace Vehicles
                 
                 // Status information.
                 stream.SendNext(CurrentHealth);
-                stream.SendNext(CurrentSpeed);
+                //stream.SendNext(CurrentSpeed);
             }
             else if (stream.isReading)
             {
@@ -424,7 +424,7 @@ namespace Vehicles
 
                 // Status information.
                 CurrentHealth = (float)stream.ReceiveNext();
-                CurrentSpeed = (float)stream.ReceiveNext();
+                //CurrentSpeed = (float)stream.ReceiveNext();
             }
         }
     }

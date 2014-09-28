@@ -21,6 +21,11 @@ namespace Agents
             }
         }
 
+        void OnApplicationFocus(bool focus)
+        {
+            enabled = focus;
+        }
+
         void Awake()
         {
             Screen.showCursor = false;
