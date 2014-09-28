@@ -19,6 +19,8 @@ namespace Networking
 
         private const int READY_PLAYER_COUNT = 2;
 
+        private PhotonView photonView;
+
         public bool IsConnectedToServer
         {
             get
@@ -31,7 +33,9 @@ namespace Networking
         {
             base.Awake();
 
-            DontDestroyOnLoad(gameObject);
+            photonView = PhotonView.Get(this);
+
+            DontDestroyOnLoad(transform.parent);
         }
 
         void Start()
@@ -142,7 +146,7 @@ namespace Networking
         public void LoadLevel(string level_name, bool is_sync = true)
         {
             PhotonNetwork.automaticallySyncScene = is_sync;
-            PhotonNetwork.LoadLevel(level_name);
+            Application.LoadLevel(level_name);
         }
 
         public void LoadLevel(int level_id, bool is_sync = true)

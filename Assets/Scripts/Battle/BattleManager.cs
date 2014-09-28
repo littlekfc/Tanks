@@ -34,14 +34,24 @@ namespace Battle
                 return new List<SpawnPoint>();
         }
 
-        void Start()
+        protected override void Awake()
         {
-            var my_spawn_points = GetSpawnPointsFor(MyTeamID).GetEnumerator();
-            if (my_spawn_points.MoveNext())
-            {
-                var spawn_point = my_spawn_points.Current;
+            base.Awake();
 
-                PhotonNetwork.Instantiate(vehiclePrefab.name, spawn_point.transform.position, spawn_point.transform.rotation, 0);
+            DontDestroyOnLoad(gameObject);
+        }
+
+        void OnLevelWasLoaded(int index)
+        {
+            if (index == 1)
+            {
+                var my_spawn_points = GetSpawnPointsFor(MyTeamID).GetEnumerator();
+                if (my_spawn_points.MoveNext())
+                {
+                    var spawn_point = my_spawn_points.Current;
+
+                    PhotonNetwork.Instantiate(vehiclePrefab.name, spawn_point.transform.position, spawn_point.transform.rotation, 0);
+                }
             }
         }
     }

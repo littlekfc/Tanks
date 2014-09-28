@@ -1731,7 +1731,7 @@ MonoBehaviour:
   synchronization: 1
   onSerializeTransformOption: 0
   onSerializeRigidBodyOption: 2
-  instantiationId: 0
+  instantiationId: -1
 --- !u!119 &11900000
 Projector:
   m_ObjectHideFlags: 1
