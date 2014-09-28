@@ -146,7 +146,7 @@ namespace Networking
         public void LoadLevel(string level_name, bool is_sync = true)
         {
             PhotonNetwork.automaticallySyncScene = is_sync;
-            Application.LoadLevel(level_name);
+            PhotonNetwork.LoadLevel(level_name);
         }
 
         public void LoadLevel(int level_id, bool is_sync = true)
