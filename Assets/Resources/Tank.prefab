@@ -1727,8 +1727,8 @@ MonoBehaviour:
   ownerId: 0
   group: 0
   prefixBackup: -1
-  observed: {fileID: 11400002}
-  synchronization: 1
+  observed: {fileID: 0}
+  synchronization: 0
   onSerializeTransformOption: 0
   onSerializeRigidBodyOption: 2
   instantiationId: -1

@@ -47,6 +47,7 @@ namespace Agents
 
             agent.Vehicle = vehicle;
             agent.photonView.observed = agent;
+            agent.photonView.synchronization = ViewSynchronization.ReliableDeltaCompressed;
 
             return agent;
         }
