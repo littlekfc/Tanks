@@ -98,7 +98,7 @@ namespace Agents
 
                 // Status information.
                 stream.SendNext(Vehicle.CurrentHealth);
-                //stream.SendNext(CurrentSpeed);
+                stream.SendNext(Vehicle.CurrentSpeed);
             }
         }
     }

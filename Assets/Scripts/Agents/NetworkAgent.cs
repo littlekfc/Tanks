@@ -69,10 +69,12 @@ namespace Agents
 
                 // Status information.
                 Vehicle.CurrentHealth = (float)stream.ReceiveNext();
-                //Vehicle.CurrentSpeed = (float)stream.ReceiveNext();
+                float current_speed = (float)stream.ReceiveNext();
 
                 syncInterval = Time.time - lastSyncTime;
                 lastSyncTime = Time.time;
+
+                syncVehiclePositionTo += Vehicle.BodyObject.forward * current_speed * syncInterval;
 
                 normalizedSyncProgress = 0.0f;
             }
