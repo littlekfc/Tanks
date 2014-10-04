@@ -274,8 +274,13 @@ namespace Vehicles
             targetWeaponOrientation = WeaponOrientation;
         }
 
-        [RPC]
         public void Fire(bool is_main_weapon)
+        {
+            CachedPhotonView.RPC("FireRPC", PhotonTargets.All, is_main_weapon);
+        }
+
+        [RPC]
+        protected void FireRPC(bool is_main_weapon)
         {
             if (is_main_weapon && mainWeapon != null)
                 mainWeapon.Fire();
@@ -285,10 +290,24 @@ namespace Vehicles
 
         public void Hit(float damage)
         {
-            CachedPhotonView.RPC("ApplyDamage", PhotonTargets.All, damage);
+            ApplyDamage(damage);
+
+            if (PhotonNetwork.isMasterClient)
+            {
+                if (currentHealth == 0.0f)
+                {
+                    Kill();
+                }
+            }
         }
 
         public void Kill()
+        {
+            CachedPhotonView.RPC("KillRPC", PhotonTargets.All);
+        }
+
+        [RPC]
+        protected void KillRPC()
         {
             if (!IsDestroyed)
             {
@@ -296,7 +315,6 @@ namespace Vehicles
 
                 PhotonNetwork.Instantiate(explosion.name, BodyObject.position, BodyObject.rotation, 0);
 
-                // TODO: Add animation and effect.
                 PhotonNetwork.Destroy(gameObject);
             }
         }
@@ -307,14 +325,9 @@ namespace Vehicles
             // If a given type of vehicle wants some special things to happen when it picks up a weapon, overwrite this method.
         }
 
-        [RPC]
         protected void ApplyDamage(float damage)
         {
             currentHealth = Mathf.Clamp(currentHealth - damage, 0.0f, currentHealth);
-            if (currentHealth == 0.0f)
-            {
-                Kill();
-            }
         }
 
         private void Awake()
@@ -327,15 +340,6 @@ namespace Vehicles
             IsDestroyed = false;
 
             rigidbody.isKinematic = !CachedPhotonView.isMine;
-
-            // Only the master client which serves as the game logic server can decide hit and apply damages.
-            if (MainWeapon != null)
-            {
-                if (PhotonNetwork.isMasterClient)
-                    MainWeapon.IsVisualEffectOnly = false;
-                else
-                    MainWeapon.IsVisualEffectOnly = true;
-            }
         }
 
         private void FixedUpdate()

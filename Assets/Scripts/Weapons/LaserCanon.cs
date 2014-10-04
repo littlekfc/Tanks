@@ -126,14 +126,11 @@ namespace Weapons
                 {
                     laser_length = hit.distance;
 
-                    if (!IsVisualEffectOnly)
+                    TObject o = hit.collider.GetComponent<TObject>();
+                    if (o is IDestroyable && IsCooledDown)
                     {
-                        TObject o = hit.collider.GetComponent<TObject>();
-                        if (o is IDestroyable && IsCooledDown)
-                        {
-                            (o as IDestroyable).Hit(InstantDamage);
-                            ResetCoolDownTimer();
-                        }
+                        (o as IDestroyable).Hit(InstantDamage);
+                        ResetCoolDownTimer();
                     }
                 }
 

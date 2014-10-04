@@ -44,11 +44,6 @@ namespace Weapons
         float Range { get; }
 
         /// <summary>
-        /// Whether this weapon is visual effect only or can actually apply damages to its victim.
-        /// </summary>
-        bool IsVisualEffectOnly { get; set; }
-
-        /// <summary>
         /// Fire the weapon!
         /// </summary>
         void Fire();

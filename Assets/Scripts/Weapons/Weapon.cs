@@ -75,19 +75,6 @@ namespace Weapons
             }
         }
 
-        public bool isVisualEffectOnly;
-        public bool IsVisualEffectOnly
-        {
-            get
-            {
-                return isVisualEffectOnly;
-            }
-            set
-            {
-                isVisualEffectOnly = value;
-            }
-        }
-
         protected void ResetCoolDownTimer()
         {
             remainingCDTime = 1 / FiringRate;
