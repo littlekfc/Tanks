@@ -314,7 +314,9 @@ namespace Vehicles
                 IsDestroyed = true;
 
                 Instantiate(explosion, VehiclePosition, VehicleOrientation);
-                Destroy(gameObject);
+
+                if (CachedPhotonView.isMine)
+                    PhotonNetwork.Destroy(gameObject);
             }
         }
 
