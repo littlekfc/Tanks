@@ -286,10 +286,6 @@ namespace Vehicles
         public void Hit(float damage)
         {
             CachedPhotonView.RPC("ApplyDamage", PhotonTargets.All, damage);
-            if (currentHealth == 0.0f)
-            {
-                Kill();
-            }
         }
 
         public void Kill()
@@ -314,7 +310,11 @@ namespace Vehicles
         [RPC]
         protected void ApplyDamage(float damage)
         {
-            currentHealth = Mathf.Clamp(currentHealth - damage, 0.0f, currentHealth); 
+            currentHealth = Mathf.Clamp(currentHealth - damage, 0.0f, currentHealth);
+            if (currentHealth == 0.0f)
+            {
+                Kill();
+            }
         }
 
         private void Awake()
