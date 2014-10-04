@@ -312,7 +312,7 @@ namespace Vehicles
         }
 
         [RPC]
-        private void ApplyDamage(float damage)
+        protected void ApplyDamage(float damage)
         {
             currentHealth = Mathf.Clamp(currentHealth - damage, 0.0f, currentHealth); 
         }

@@ -22,7 +22,7 @@ public class SupportLogger : MonoBehaviour
 public class SupportLogging : MonoBehaviour
 {
     public bool LogTrafficStats;
-    
+
     public void Start()
     {
         if (LogTrafficStats)
@@ -49,7 +49,7 @@ public class SupportLogging : MonoBehaviour
         StringBuilder sb = new StringBuilder();
         sb.AppendFormat("SupportLogger Info: PUN {0}: ", PhotonNetwork.versionPUN);
 
-        sb.AppendFormat("AppID: {0}*** GameVersion: {1} ", PhotonNetwork.networkingPeer.mAppId.Substring(0, 8), PhotonNetwork.networkingPeer.mAppVersion);
+        sb.AppendFormat("AppID: {0}*** GameVersion: {1} ", PhotonNetwork.networkingPeer.mAppId.Substring(0, 8), PhotonNetwork.networkingPeer.mAppVersionPun);
         sb.AppendFormat("Server: {0}. Region: {1} ", PhotonNetwork.ServerAddress, PhotonNetwork.networkingPeer.CloudRegion);
         sb.AppendFormat("HostType: {0} ", PhotonNetwork.PhotonServerSettings.HostType);
 
