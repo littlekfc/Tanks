@@ -36,6 +36,8 @@ namespace Networking
             PhotonNetwork.automaticallySyncScene = true;
             photonView = PhotonView.Get(this);
 
+            PhotonNetwork.logLevel = PhotonLogLevel.Full;
+
             DontDestroyOnLoad(transform.parent);
         }
 

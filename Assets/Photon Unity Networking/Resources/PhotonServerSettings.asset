@@ -19,19 +19,22 @@ MonoBehaviour:
   AppID: 37605a37-fd34-404d-9967-cb6e3914c097
   PingCloudServersOnAwake: 0
   RpcList:
+  - ApplyDamage
+  - CeaseFire
   - Chat
   - DestroyRpc
+  - Fire
   - InstantiateRpc
   - Marco
   - OnAwakeRPC
+  - OnGameReady
   - PickupItemInit
   - Polo
   - PunPickup
   - PunPickupSimple
   - PunRespawn
   - RequestForPickupTimes
+  - SetMyTeam
   - SetPosition
   - TaggedPlayer
-  - SetMyTeam
-  - OnGameReady
   DisableAutoOpenWizard: 0
