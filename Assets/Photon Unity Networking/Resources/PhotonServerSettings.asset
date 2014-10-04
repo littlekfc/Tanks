@@ -19,7 +19,7 @@ MonoBehaviour:
   AppID: 37605a37-fd34-404d-9967-cb6e3914c097
   PingCloudServersOnAwake: 0
   RpcList:
-  - CeaseFire
+  - CeaseFireRPC
   - Chat
   - DestroyRpc
   - FireRPC
