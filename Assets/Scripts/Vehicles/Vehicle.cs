@@ -313,9 +313,8 @@ namespace Vehicles
             {
                 IsDestroyed = true;
 
-                PhotonNetwork.Instantiate(explosion.name, BodyObject.position, BodyObject.rotation, 0);
-
-                PhotonNetwork.Destroy(gameObject);
+                Instantiate(explosion, VehiclePosition, VehicleOrientation);
+                Destroy(gameObject);
             }
         }
 
