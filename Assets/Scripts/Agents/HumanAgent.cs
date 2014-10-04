@@ -70,20 +70,20 @@ namespace Agents
         {
             if (Input.GetButtonDown("MainWeaponFire"))
             {
-                Vehicle.Fire(true);
+                photonView.RPC("Fire", PhotonTargets.All, true);
             }
             else if (Input.GetButtonUp("MainWeaponFire"))
             {
-                Vehicle.CeaseFire(true);
+                photonView.RPC("CeaseFire", PhotonTargets.All, true);
             }
             
             if (Input.GetButtonDown("SecondaryWeaponFire"))
             {
-                Vehicle.Fire(false);
+                photonView.RPC("Fire", PhotonTargets.All, false);
             }
             else if (Input.GetButtonUp("SecondaryWeaponFire"))
             {
-                Vehicle.CeaseFire(false);
+                photonView.RPC("CeaseFire", PhotonTargets.All, false);
             }
         }
 

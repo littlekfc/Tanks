@@ -6,15 +6,39 @@ using Attributes;
 
 namespace Weapons
 {
+    /// <summary>
+    /// The laser canon!
+    /// </summary>
     public class LaserCanon : Weapon
     {
+        /// <summary>
+        /// Time needed for charging the laser canon to its full power state from 0 power state.
+        /// </summary>
         public float chargingPeriod = 0.0f;
+
+        /// <summary>
+        /// Time needed for decharging the laser canon to its 0 power state from full power state.
+        /// </summary>
         public float dechargingPeriod = 0.0f;
+
+        /// <summary>
+        /// Describe how the laser canon's power level changes during charging.
+        /// </summary>
         public AnimationCurve chargingCurve;
+
+        /// <summary>
+        /// Describe how the laser canon's power level changes during decharging.
+        /// </summary>
         public AnimationCurve dechargingCurve;
 
+        /// <summary>
+        /// Where the laser is starting from.
+        /// </summary>
         public Transform gunTip;
 
+        /// <summary>
+        /// A weak nomalised value describes current power level of the laser canon.
+        /// </summary>
         public float PowerLevel
         {
             get
@@ -26,6 +50,9 @@ namespace Weapons
             }
         }
 
+        /// <summary>
+        /// A strong normalised value describes the charging progress.
+        /// </summary>
         private float chargingProgress = 0.0f;
         public float ChargingProgress
         {
@@ -39,10 +66,19 @@ namespace Weapons
             }
         }
 
+        /// <summary>
+        /// Whether the laser canon is charging or not.
+        /// </summary>
         private bool isCharging = false;
 
+        /// <summary>
+        /// For fixing the laser length when the gun tip position differs from the laser effect object position.
+        /// </summary>
         private float gunTipLaserOffset = 0.0f;
 
+        /// <summary>
+        /// The laser effect!
+        /// </summary>
         private LaserEffect laser;
         protected LaserEffect Laser
         {
@@ -55,6 +91,9 @@ namespace Weapons
             }
         }
 
+        /// <summary>
+        /// The damage of the laser canon at the given moment.
+        /// </summary>
         protected float InstantDamage
         {
             get
@@ -87,11 +126,14 @@ namespace Weapons
                 {
                     laser_length = hit.distance;
 
-                    TObject o = hit.collider.GetComponent<TObject>();
-                    if (o is IDestroyable && IsCooledDown)
+                    if (!IsVisualEffectOnly)
                     {
-                        (o as IDestroyable).Hit(InstantDamage);
-                        ResetCoolDownTimer();
+                        TObject o = hit.collider.GetComponent<TObject>();
+                        if (o is IDestroyable && IsCooledDown)
+                        {
+                            (o as IDestroyable).Hit(InstantDamage);
+                            ResetCoolDownTimer();
+                        }
                     }
                 }
 

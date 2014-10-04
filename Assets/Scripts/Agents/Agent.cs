@@ -5,7 +5,7 @@ using Vehicles;
 
 namespace Agents
 {
-    public abstract class Agent : Photon.MonoBehaviour, IAgent
+    public abstract class Agent : TBehaviour, IAgent
     {
         public IVehicle Vehicle { get; set; }
     }

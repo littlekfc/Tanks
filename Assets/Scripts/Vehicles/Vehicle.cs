@@ -274,6 +274,7 @@ namespace Vehicles
             targetWeaponOrientation = WeaponOrientation;
         }
 
+        [RPC]
         public void Fire(bool is_main_weapon)
         {
             if (is_main_weapon && mainWeapon != null)
@@ -284,7 +285,7 @@ namespace Vehicles
 
         public void Hit(float damage)
         {
-            currentHealth = Mathf.Clamp(currentHealth - damage, 0.0f, currentHealth);
+            CachedPhotonView.RPC("ApplyDamage", PhotonTargets.All, damage);
             if (currentHealth == 0.0f)
             {
                 Kill();
@@ -297,10 +298,10 @@ namespace Vehicles
             {
                 IsDestroyed = true;
 
-                Instantiate(explosion, bodyObject.position, bodyObject.rotation);
+                PhotonNetwork.Instantiate(explosion.name, BodyObject.position, BodyObject.rotation, 0);
 
                 // TODO: Add animation and effect.
-                Destroy(gameObject);
+                PhotonNetwork.Destroy(gameObject);
             }
         }
 
@@ -308,6 +309,12 @@ namespace Vehicles
         {
             // Do nothing when picking up a weapon. The logic for picking up a weapon is implemented by the weapon itself.
             // If a given type of vehicle wants some special things to happen when it picks up a weapon, overwrite this method.
+        }
+
+        [RPC]
+        private void ApplyDamage(float damage)
+        {
+            currentHealth = Mathf.Clamp(currentHealth - damage, 0.0f, currentHealth); 
         }
 
         private void Awake()
@@ -319,7 +326,16 @@ namespace Vehicles
 
             IsDestroyed = false;
 
-            rigidbody.isKinematic = !photonView.isMine;
+            rigidbody.isKinematic = !CachedPhotonView.isMine;
+
+            // Only the master client which serves as the game logic server can decide hit and apply damages.
+            if (MainWeapon != null)
+            {
+                if (PhotonNetwork.isMasterClient)
+                    MainWeapon.IsVisualEffectOnly = false;
+                else
+                    MainWeapon.IsVisualEffectOnly = true;
+            }
         }
 
         private void FixedUpdate()
@@ -392,6 +408,7 @@ namespace Vehicles
             }
         }
 
+        [RPC]
         public void CeaseFire(bool is_main_weapon)
         {
             if (is_main_weapon)
