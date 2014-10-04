@@ -411,8 +411,13 @@ namespace Vehicles
             }
         }
 
-        [RPC]
         public void CeaseFire(bool is_main_weapon)
+        {
+            CachedPhotonView.RPC("CeaseFireRPC", PhotonTargets.All, is_main_weapon);
+        }
+
+        [RPC]
+        protected void CeaseFireRPC(bool is_main_weapon)
         {
             if (is_main_weapon)
                 MainWeapon.CeaseFire();
