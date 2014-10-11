@@ -8,17 +8,14 @@ namespace Vehicles
         protected override void OnMove(Vector3 direction, bool is_local)
         {
             Vector3 local_dir;
-            Vector3 world_dir;
 
             if (!is_local)
             {
                 local_dir = Quaternion.Inverse(VehicleOrientation) * direction;
-                world_dir = direction;
             }
             else
             {
                 local_dir = direction;
-                world_dir = VehicleOrientation * direction;
             }
 
             if (Mathf.Abs(local_dir.x) > 0.0f)

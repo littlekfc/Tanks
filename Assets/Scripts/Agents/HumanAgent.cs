@@ -87,7 +87,7 @@ namespace Agents
             }
         }
 
-        void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        protected override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
             if (stream.isWriting)
             {

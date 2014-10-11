@@ -3,6 +3,7 @@ using System.Collections;
 
 using Vehicles;
 using Agents;
+using Battle;
 
 namespace Dummy
 {
@@ -18,7 +19,7 @@ namespace Dummy
             {
                 var agent = AgentFactory.Instance.AddAgentTo(vehicle, isAI);
                 if (!isAI && agent is HumanAgent)
-                    CameraManager.Instance.MountMainCameraAt(vehicle.Object);
+                    CameraManager.Instance.MainCamera.LookAt(vehicle.Object.transform);
             }
 
             Destroy(this);

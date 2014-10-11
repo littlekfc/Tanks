@@ -14,7 +14,6 @@ namespace Networking
 
         public event Action onGameReady;
         public event Action onGameCancelled;
-        public event Action onError;
         public event Action onMatchingFailed;
 
         private const int READY_PLAYER_COUNT = 2;
