@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 namespace Attributes
 {
@@ -8,6 +9,21 @@ namespace Attributes
     /// </summary>
     public interface IDestroyable : IAttribute
     {
+        /// <summary>
+        /// Emit when an object having this attribute gets hit with a parameter indicating the resulting health.
+        /// </summary>
+        event Action<float> onHit;
+
+        /// <summary>
+        /// Emit when an object having this attribute gets killed.
+        /// </summary>
+        event Action onKilled;
+
+        /// <summary>
+        /// A mounting point for the health bar.
+        /// </summary>
+        Transform HealthBarMountingPoint { get; }
+
         /// <summary>
         /// Called when the object is hit.
         /// </summary>

@@ -6,5 +6,7 @@ namespace Battle
     public interface ITCamera
     {
         void LookAt(Transform target);
+
+        Camera Camera { get; }
     }
 }

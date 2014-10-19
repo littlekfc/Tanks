@@ -414,6 +414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crosshairCursor: {fileID: 349661279}
+  healthBar: {fileID: 11400000, guid: 50b872387aac9874599af61879664cf7, type: 2}
 --- !u!1 &598076530
 GameObject:
   m_ObjectHideFlags: 0

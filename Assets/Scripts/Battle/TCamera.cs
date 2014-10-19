@@ -6,7 +6,7 @@ namespace Battle
     public abstract class TCamera : TBehaviour, ITCamera
     {
         private Camera cam;
-        protected Camera Camera
+        public Camera Camera
         {
             get
             {

@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-using Photon;
-
 using Players;
 
 namespace Battle
