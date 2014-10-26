@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using Networking;
+using Tanks.Networking;
 
-namespace UI
+namespace Tanks.UI
 {
     public class MainMenuManager : Singleton<MainMenuManager>
     {

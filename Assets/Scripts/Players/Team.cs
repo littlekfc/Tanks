@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-namespace Players
+namespace Tanks.Players
 {
     public class Team
     {

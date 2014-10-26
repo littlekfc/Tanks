@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using Attributes;
+using Tanks.Attributes;
 
-namespace UI
+namespace Tanks.UI
 {
     public class HUDManager : Singleton<HUDManager>
     {

@@ -1,74 +1,77 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class TBehaviour : Photon.MonoBehaviour
+namespace Tanks
 {
-    #region Cached Components
-    private PhotonView cachedPhotonView;
-    public PhotonView CachedPhotonView
+    public abstract class TBehaviour : Photon.MonoBehaviour
     {
-        get
+        #region Cached Components
+        private PhotonView cachedPhotonView;
+        public PhotonView CachedPhotonView
         {
-            if (cachedPhotonView == null)
-                cachedPhotonView = photonView;
+            get
+            {
+                if (cachedPhotonView == null)
+                    cachedPhotonView = photonView;
 
-            return cachedPhotonView;
+                return cachedPhotonView;
+            }
         }
-    }
 
-    private Transform cachedTransform;
-    public Transform CachedTransform
-    {
-        get
+        private Transform cachedTransform;
+        public Transform CachedTransform
         {
-            if (cachedTransform == null)
-                cachedTransform = transform;
+            get
+            {
+                if (cachedTransform == null)
+                    cachedTransform = transform;
 
-            return cachedTransform;
+                return cachedTransform;
+            }
         }
-    }
 
-    private Camera cachedCamera;
-    public Camera CachedCamera
-    {
-        get
+        private Camera cachedCamera;
+        public Camera CachedCamera
         {
-            if (cachedCamera == null)
-                cachedCamera = camera;
+            get
+            {
+                if (cachedCamera == null)
+                    cachedCamera = camera;
 
-            return cachedCamera;
+                return cachedCamera;
+            }
         }
-    }
 
-    private Collider cachedCollider;
-    public Collider CachedCollider
-    {
-        get
+        private Collider cachedCollider;
+        public Collider CachedCollider
         {
-            if (cachedCollider == null)
-                cachedCollider = collider;
+            get
+            {
+                if (cachedCollider == null)
+                    cachedCollider = collider;
 
-            return cachedCollider;
+                return cachedCollider;
+            }
         }
-    }
 
-    private Rigidbody cachedRigidbody;
-    public Rigidbody CachedRigidbody
-    {
-        get
+        private Rigidbody cachedRigidbody;
+        public Rigidbody CachedRigidbody
         {
-            if (cachedRigidbody == null)
-                cachedRigidbody = rigidbody;
+            get
+            {
+                if (cachedRigidbody == null)
+                    cachedRigidbody = rigidbody;
 
-            return cachedRigidbody;
+                return cachedRigidbody;
+            }
         }
-    }
-    #endregion
+        #endregion
 
-    public T AddComponent<T>() where T : Component
-    {
-        return gameObject.AddComponent<T>();
-    }
+        public T AddComponent<T>() where T : Component
+        {
+            return gameObject.AddComponent<T>();
+        }
 
-    protected virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) { }
+        protected virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) { }
+    }
 }

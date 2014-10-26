@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Vehicles
+namespace Tanks.Vehicles
 {
     public class Tank : Vehicle
     {

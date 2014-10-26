@@ -2,9 +2,9 @@
 using System.Collections;
 using System;
 
-using Weapons;
+using Tanks.Weapons;
 
-namespace Vehicles
+namespace Tanks.Vehicles
 {
     /// <summary>
     /// A base class for vehicles implementing the common parts of IVehicle interface.

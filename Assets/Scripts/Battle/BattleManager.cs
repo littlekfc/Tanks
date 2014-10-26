@@ -2,9 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
-using Players;
+using Tanks.Players;
+using Tanks.Resources;
 
-namespace Battle
+namespace Tanks.Battle
 {
     public class BattleManager : Singleton<BattleManager>
     {
@@ -39,17 +40,28 @@ namespace Battle
             DontDestroyOnLoad(gameObject);
         }
 
+        public void Initialize()
+        {
+            var my_spawn_points = GetSpawnPointsFor(MyTeamID).GetEnumerator();
+            if (my_spawn_points.MoveNext())
+            {
+                var spawn_point = my_spawn_points.Current;
+
+                PhotonNetwork.Instantiate(vehiclePrefab.name, spawn_point.transform.position, spawn_point.transform.rotation, 0);
+            }
+
+            var init_resource = new Resource
+            {
+                Mineral = 100
+            };
+            ResourceManager.Instance.Initialize(init_resource, spawnPoints.Keys);
+        }
+
         void OnLevelWasLoaded(int index)
         {
             if (index == 1)
             {
-                var my_spawn_points = GetSpawnPointsFor(MyTeamID).GetEnumerator();
-                if (my_spawn_points.MoveNext())
-                {
-                    var spawn_point = my_spawn_points.Current;
-
-                    PhotonNetwork.Instantiate(vehiclePrefab.name, spawn_point.transform.position, spawn_point.transform.rotation, 0);
-                }
+                
             }
         }
     }

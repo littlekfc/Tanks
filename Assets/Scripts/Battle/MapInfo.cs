@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-namespace Battle
+namespace Tanks.Battle
 {
     [Serializable]
     public class MapInfo

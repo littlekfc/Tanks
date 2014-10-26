@@ -2,10 +2,10 @@
 using UnityEngine.UI;
 using System.Collections;
 
-using Battle;
-using Attributes;
+using Tanks.Battle;
+using Tanks.Attributes;
 
-namespace UI
+namespace Tanks.UI
 {
     public class HealthBar : Bar
     {

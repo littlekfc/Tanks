@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using Vehicles;
-using Agents;
-using Battle;
-using UI;
+using Tanks.Vehicles;
+using Tanks.Agents;
+using Tanks.Battle;
+using Tanks.UI;
 
-namespace Dummy
+namespace Tanks.Dummy
 {
     public class AgentInitializer : MonoBehaviour
     {

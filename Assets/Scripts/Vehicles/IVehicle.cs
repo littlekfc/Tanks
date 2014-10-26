@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using Weapons;
-using Attributes;
+using Tanks.Weapons;
+using Tanks.Attributes;
 
-namespace Vehicles
+namespace Tanks.Vehicles
 {
     /// <summary>
     /// An interface for all the vehicles.

@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using Vehicles;
-using UI;
+using Tanks.Vehicles;
+using Tanks.UI;
 
-namespace Agents
+namespace Tanks.Agents
 {
     /// <summary>
     /// A class responsible for handling human agent input.

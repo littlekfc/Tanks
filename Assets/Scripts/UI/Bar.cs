@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-namespace UI
+namespace Tanks.UI
 {
     public abstract class Bar : TBehaviour
     {

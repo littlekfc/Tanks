@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnvironmentManager : Singleton<EnvironmentManager> 
+namespace Tanks
 {
-    public float environmentDrag = 0.0f;
+    public class EnvironmentManager : Singleton<EnvironmentManager>
+    {
+        public float environmentDrag = 0.0f;
+    }
 }

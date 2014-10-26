@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Weapons
+namespace Tanks.Weapons
 {
     /// <summary>
     /// A base for all the weapons implementing the common parts of IWeapon interface.

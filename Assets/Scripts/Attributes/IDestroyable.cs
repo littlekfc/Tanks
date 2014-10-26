@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-namespace Attributes
+namespace Tanks.Attributes
 {
     /// <summary>
     /// All the objects that are destroyable should implement this interface.

@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using VisualEffects;
-using Attributes;
+using Tanks.VisualEffects;
+using Tanks.Attributes;
 
-namespace Weapons
+namespace Tanks.Weapons
 {
     /// <summary>
     /// The laser canon!

@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using UI;
+using Tanks.UI;
 
-namespace Dummy
+namespace Tanks.Dummy
 {
     public class DummyInitializer : Singleton<DummyInitializer>
     {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Attributes
+namespace Tanks.Attributes
 {
     public interface IAttribute
     {
