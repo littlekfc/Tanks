@@ -3,6 +3,7 @@ using System.Collections;
 
 using Tanks.Vehicles;
 using Tanks.UI;
+using Tanks.Battle;
 
 namespace Tanks.Agents
 {
@@ -17,7 +18,7 @@ namespace Tanks.Agents
         {
             get
             {
-                return Camera.main;
+                return CameraManager.Instance.MainCamera.Camera;
             }
         }
 

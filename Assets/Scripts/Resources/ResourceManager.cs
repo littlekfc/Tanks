@@ -13,7 +13,9 @@ namespace Tanks.Resources
     {
         private IDictionary<Team.TeamID, Resource> teamResourceMap = new Dictionary<Team.TeamID, Resource>();
 
-        public void Initialize(Resource initial_resource, IEnumerable<Team.TeamID> teams)
+        public Resource MyResource { get; private set; }
+
+        public void Initialize(Resource initial_resource, IEnumerable<Team.TeamID> teams, Team.TeamID my_team)
         {
             teamResourceMap.Clear();
 
@@ -28,6 +30,8 @@ namespace Tanks.Resources
                     teamResourceMap.Add(team, new Resource(initial_resource));
                 }
             }
+
+            MyResource = ResourceFor(my_team);
         }
 
         public Resource ResourceFor(Team.TeamID team_id)

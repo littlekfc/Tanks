@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+using System;
 
 namespace Tanks.Resources
 {
     /// <summary>
     /// The in-game resource.
     /// </summary>
+    [Serializable]
     public class Resource
     {
-        public int Mineral { get; set; }
+        public int Mineral;
 
         public Resource()
         {
@@ -19,5 +22,19 @@ namespace Tanks.Resources
         {
             Mineral = other.Mineral;
         }
+
+        public void Add(Resource other)
+        {
+            Mineral = Mathf.Clamp(Mineral + other.Mineral, 0, int.MaxValue);
+        }
+    }
+
+    /// <summary>
+    /// The ui structure for the in-game resource.
+    /// </summary>
+    [Serializable]
+    public class ResourceDisplay
+    {
+        public Text mineral;
     }
 }

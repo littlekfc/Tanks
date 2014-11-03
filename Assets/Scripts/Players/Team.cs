@@ -8,6 +8,7 @@ namespace Tanks.Players
     {
         public enum TeamID
         {
+            NONE,
             RED,
             BLUE
         }

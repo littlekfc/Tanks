@@ -2,6 +2,7 @@
 using System.Collections;
 
 using Tanks.Attributes;
+using Tanks.Resources;
 
 namespace Tanks.UI
 {
@@ -9,6 +10,7 @@ namespace Tanks.UI
     {
         public Transform crosshairCursor;
         public HealthBar healthBar;
+        public ResourceDisplay resourceDisplay;
 
         private Transform uiRoot = null;
         private Transform UIRoot
@@ -50,6 +52,18 @@ namespace Tanks.UI
             }
         }
 
+        public bool IsShown
+        {
+            get
+            {
+                return gameObject.activeSelf;
+            }
+            set
+            {
+                gameObject.SetActive(value);
+            }
+        }
+
         protected override void Awake()
         {
             base.Awake();
@@ -59,9 +73,17 @@ namespace Tanks.UI
 
         void Update()
         {
+            // Cursors.
             if (IsCursorActive)
             {
                 Cursor.position = Input.mousePosition;
+            }
+
+            // Resources.
+            var my_resource = ResourceManager.Instance.MyResource;
+            if (my_resource != null)
+            {
+                resourceDisplay.mineral.text = my_resource.Mineral.ToString();
             }
         }
 

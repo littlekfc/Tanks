@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using Tanks.Players;
 using Tanks.Resources;
+using Tanks.UI;
 
 namespace Tanks.Battle
 {
@@ -54,14 +55,16 @@ namespace Tanks.Battle
             {
                 Mineral = 100
             };
-            ResourceManager.Instance.Initialize(init_resource, spawnPoints.Keys);
+            ResourceManager.Instance.Initialize(init_resource, spawnPoints.Keys, MyTeamID);
+
+            HUDManager.Instance.IsShown = true;
         }
 
         void OnLevelWasLoaded(int index)
         {
             if (index == 1)
             {
-                
+                Initialize();
             }
         }
     }
