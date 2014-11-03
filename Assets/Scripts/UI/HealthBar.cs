@@ -18,7 +18,9 @@ namespace Tanks.UI
 
         private void OnOnwerKilled()
         {
-            Destroy(gameObject);
+            // I know this line is stupid. But such stupid test, Unity will tell you 'Object is already destroyed and you are still trying to access it!'. >_<
+            if (this != null && gameObject != null)
+                Destroy(gameObject);
         }
 
         void Update()

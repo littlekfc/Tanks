@@ -183,6 +183,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 35d25fd4e988d7740b78e467de658755, type: 2}
+      propertyPath: ownerTeamID
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 35d25fd4e988d7740b78e467de658755, type: 2}
   m_RootGameObject: {fileID: 2137845129}
@@ -242,7 +246,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!1 &1306842381
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,7 +389,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!1001 &1872228096
 Prefab:
   m_ObjectHideFlags: 0
@@ -462,7 +466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bb2cae32cecee04fbd0cdc8f1718bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownerTeamID: 0
+  ownerTeamID: 2
 --- !u!4 &2137845131
 Transform:
   m_ObjectHideFlags: 0

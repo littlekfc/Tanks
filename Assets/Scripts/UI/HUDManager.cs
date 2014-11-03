@@ -56,11 +56,11 @@ namespace Tanks.UI
         {
             get
             {
-                return gameObject.activeSelf;
+                return UIRoot.GetComponent<Canvas>().enabled;
             }
             set
             {
-                gameObject.SetActive(value);
+                UIRoot.GetComponent<Canvas>().enabled = value;
             }
         }
 
@@ -91,6 +91,9 @@ namespace Tanks.UI
         {
             var health_bar = Instantiate(healthBar) as HealthBar;
             health_bar.CachedTransform.parent = UIRoot;
+            // There is a Unity bug or some sort here... If you reparent an UI element to a disabled Canvas, it will reset the child's scale to (0, 0, 0)!
+            // For reverting that, I manually set it back to (1, 1, 1)... How stupid!
+            health_bar.CachedTransform.localScale = Vector3.one;  
             health_bar.Reset(owner, max_health, normalized_current_health, min_health);
         }
     }

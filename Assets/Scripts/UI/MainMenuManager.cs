@@ -14,6 +14,8 @@ namespace Tanks.UI
             NetworkManager.Instance.onGameReady += OnReady;
             NetworkManager.Instance.onGameCancelled += OnCancelled;
             NetworkManager.Instance.onMatchingFailed += OnCancelled;
+
+            HUDManager.Instance.IsShown = false;
         }
 
         private void OnDestroy()
