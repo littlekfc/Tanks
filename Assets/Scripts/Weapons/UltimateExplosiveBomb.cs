@@ -1,8 +1,9 @@
 using System.Collections;
 using UnityEngine;
-using Attributes;
 
-namespace Weapons
+using Tanks.Attributes;
+
+namespace Tanks.Weapons
 {
     /// <summary>
     /// The universe super invincible ultimate explosive bomb 
