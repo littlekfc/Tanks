@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Agents
+namespace Tanks.Agents
 {
     public class NetworkAgent : Agent
     {

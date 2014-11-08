@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Battle
+namespace Tanks.Battle
 {
     public class CameraManager : Singleton<CameraManager>
     {

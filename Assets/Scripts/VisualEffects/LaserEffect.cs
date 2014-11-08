@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace VisualEffects
+namespace Tanks.VisualEffects
 {
     public class LaserEffect : MonoBehaviour
     {

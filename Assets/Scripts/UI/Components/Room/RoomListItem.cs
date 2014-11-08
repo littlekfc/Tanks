@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace UI.Components
+namespace Tanks.UI.Components
 {
     public class RoomListItem : ListItem<RoomInfo>
     {

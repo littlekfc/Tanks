@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Singleton<T> : MonoBehaviour where T : class
+namespace Tanks
 {
-    public static T Instance { get; private set; }
-
-    protected virtual void Awake()
+    public class Singleton<T> : TBehaviour where T : class
     {
-        if (Instance == null)
-            Instance = this as T;
-        else
-            Destroy(gameObject);
+        public static T Instance { get; private set; }
+
+        protected virtual void Awake()
+        {
+            if (Instance == null)
+                Instance = this as T;
+            else
+                Destroy(gameObject);
+        }
     }
 }

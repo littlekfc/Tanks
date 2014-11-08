@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using Vehicles;
-using UI;
+using Tanks.Vehicles;
+using Tanks.UI;
+using Tanks.Battle;
 
-namespace Agents
+namespace Tanks.Agents
 {
     /// <summary>
     /// A class responsible for handling human agent input.
@@ -17,7 +18,7 @@ namespace Agents
         {
             get
             {
-                return Camera.main;
+                return CameraManager.Instance.MainCamera.Camera;
             }
         }
 

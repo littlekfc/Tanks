@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-using Weapons;
+using Tanks.Weapons;
+using Tanks.Utils;
 
-namespace Vehicles
+namespace Tanks.Vehicles
 {
     /// <summary>
     /// A base class for vehicles implementing the common parts of IVehicle interface.
     /// </summary>
     public abstract class Vehicle : TObject, IVehicle
     {
+        public event Action<float> onHit;
+        public event Action onKilled;
+
         /// <summary>
         /// The object representing the weapon.
         /// </summary>
@@ -211,6 +216,7 @@ namespace Vehicles
             set
             {
                 currentHealth = value;
+                EventUtils.Emit(onHit, currentHealth);
             }
         }
 
@@ -219,6 +225,15 @@ namespace Vehicles
             get
             {
                 return this;
+            }
+        }
+
+        public Transform healthBarMountingPoint;
+        public Transform HealthBarMountingPoint
+        {
+            get
+            {
+                return healthBarMountingPoint;
             }
         }
 
@@ -294,7 +309,7 @@ namespace Vehicles
 
             if (PhotonNetwork.isMasterClient)
             {
-                if (currentHealth == 0.0f)
+                if (CurrentHealth == 0.0f)
                 {
                     Kill();
                 }
@@ -328,7 +343,7 @@ namespace Vehicles
 
         protected void ApplyDamage(float damage)
         {
-            currentHealth = Mathf.Clamp(currentHealth - damage, 0.0f, currentHealth);
+            CurrentHealth = Mathf.Clamp(currentHealth - damage, 0.0f, currentHealth);
         }
 
         private void Awake()
@@ -341,6 +356,11 @@ namespace Vehicles
             IsDestroyed = false;
 
             rigidbody.isKinematic = !CachedPhotonView.isMine;
+        }
+
+        private void OnDestroy()
+        {
+            EventUtils.Emit(onKilled);
         }
 
         private void FixedUpdate()

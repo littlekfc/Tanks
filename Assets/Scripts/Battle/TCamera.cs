@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Battle
+namespace Tanks.Battle
 {
     public abstract class TCamera : TBehaviour, ITCamera
     {
         private Camera cam;
-        protected Camera Camera
+        public Camera Camera
         {
             get
             {

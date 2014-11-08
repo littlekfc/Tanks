@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using Weapons;
-using Attributes;
+using Tanks.Weapons;
+using Tanks.Attributes;
 
-namespace Vehicles
+namespace Tanks.Vehicles
 {
     /// <summary>
     /// An interface for all the vehicles.
@@ -90,11 +90,6 @@ namespace Vehicles
         /// The current health of the vehicle.
         /// </summary>
         float CurrentHealth { get; set; }
-
-        /// <summary>
-        /// The object for this vehicle.
-        /// </summary>
-        TObject Object { get; }
 
         /// <summary>
         /// Move the vehicle towards a given direction. 

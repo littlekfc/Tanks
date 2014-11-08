@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using Vehicles;
+using Tanks.Vehicles;
 
-namespace Agents
+namespace Tanks.Agents
 {
     /// <summary>
     /// An interface for all agents.
