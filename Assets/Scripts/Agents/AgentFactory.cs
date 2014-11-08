@@ -2,9 +2,9 @@
 using System.Collections;
 using System;
 
-using Vehicles;
+using Tanks.Vehicles;
 
-namespace Agents
+namespace Tanks.Agents
 {
     public class AgentFactory : Singleton<AgentFactory>
     {

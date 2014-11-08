@@ -2,11 +2,11 @@
 using System.Collections;
 using System;
 
-using Dummy;
-using Players;
-using Battle;
+using Tanks.Dummy;
+using Tanks.Players;
+using Tanks.Battle;
 
-namespace Networking
+namespace Tanks.Networking
 {
     public class NetworkManager : Singleton<NetworkManager>
     {

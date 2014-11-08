@@ -2,12 +2,13 @@
 using System.Collections;
 using System;
 
-namespace Players
+namespace Tanks.Players
 {
     public class Team
     {
         public enum TeamID
         {
+            NONE,
             RED,
             BLUE
         }

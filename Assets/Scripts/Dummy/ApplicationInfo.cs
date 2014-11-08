@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Dummy
+namespace Tanks.Dummy
 {
     public static class ApplicationInfo
     {

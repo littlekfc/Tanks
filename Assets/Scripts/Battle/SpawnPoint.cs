@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using Players;
+using Tanks.Players;
 
-namespace Battle
+namespace Tanks.Battle
 {
     public class SpawnPoint : MonoBehaviour
     {

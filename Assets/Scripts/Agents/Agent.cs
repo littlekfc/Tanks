@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using Vehicles;
+using Tanks.Vehicles;
 
-namespace Agents
+namespace Tanks.Agents
 {
     public abstract class Agent : TBehaviour, IAgent
     {

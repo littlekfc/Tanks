@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Battle
+namespace Tanks.Battle
 {
     public interface ITCamera
     {
         void LookAt(Transform target);
+
+        Camera Camera { get; }
     }
 }

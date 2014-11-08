@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Players
+namespace Tanks.Players
 {
     public class PlayerManager : MonoBehaviour
     {

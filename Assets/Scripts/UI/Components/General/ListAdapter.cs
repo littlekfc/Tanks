@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-namespace UI.Components
+namespace Tanks.UI.Components
 {
     public class ListAdapter : MonoBehaviour
     {

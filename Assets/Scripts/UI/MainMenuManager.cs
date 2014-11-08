@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using Networking;
+using Tanks.Networking;
 
-namespace UI
+namespace Tanks.UI
 {
     public class MainMenuManager : Singleton<MainMenuManager>
     {
@@ -14,6 +14,8 @@ namespace UI
             NetworkManager.Instance.onGameReady += OnReady;
             NetworkManager.Instance.onGameCancelled += OnCancelled;
             NetworkManager.Instance.onMatchingFailed += OnCancelled;
+
+            HUDManager.Instance.IsShown = false;
         }
 
         private void OnDestroy()
