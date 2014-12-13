@@ -363,11 +363,12 @@ namespace Tanks.Vehicles
             EventUtils.Emit(onKilled);
         }
 
-        private void FixedUpdate()
+        override protected void FixedUpdate()
         {
             TurnWeapon();
             TurnVehicle();
             Move();
+            base.FixedUpdate();
         }
 
         private void Move()

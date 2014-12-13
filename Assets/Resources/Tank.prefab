@@ -1585,6 +1585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bca0b55db97cfd4cbb320aca229a3c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eyesightRange: 8
   gunObject: {fileID: 400008}
   bodyObject: {fileID: 400020}
   explosion: {fileID: 100000, guid: d6d4fdc7e6b5cbe49b591d8d950f854c, type: 2}
