@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using Tanks.Battle.Capture;
+
 namespace Tanks.Vehicles
 {
-    public class Tank : Vehicle
+    public class Tank : Vehicle, ICaptor
     {
         protected override void OnMove(Vector3 direction, bool is_local)
         {

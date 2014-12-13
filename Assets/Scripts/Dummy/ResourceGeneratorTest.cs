@@ -5,7 +5,7 @@ namespace Tanks.Dummy
 {
     public class ResourceGeneratorTest : TBehaviour
     {
-        public Resources.ResourceGenerator generator;
+        public Battle.ResourceGenerator generator;
 
         private void Start()
         {

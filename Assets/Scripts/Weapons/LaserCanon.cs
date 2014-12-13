@@ -2,7 +2,7 @@
 using System.Collections;
 
 using Tanks.VisualEffects;
-using Tanks.Attributes;
+using Tanks.Battle;
 
 namespace Tanks.Weapons
 {

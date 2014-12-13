@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 
-using Tanks.Attributes;
-
 namespace Tanks.Weapons
 {
     public class BulletGun: Weapon

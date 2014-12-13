@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-using Tanks.Attributes;
 using Tanks.Resources;
+using Tanks.Battle;
 
 namespace Tanks.UI
 {

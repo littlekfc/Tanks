@@ -2,8 +2,9 @@
 using System.Collections;
 
 using Tanks.Players;
+using Tanks.Resources;
 
-namespace Tanks.Resources
+namespace Tanks.Battle
 {
     public class ResourceGenerator : TObject
     {

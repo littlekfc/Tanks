@@ -2,7 +2,7 @@
 using System.Collections;
 
 using Tanks.Weapons;
-using Tanks.Attributes;
+using Tanks.Battle;
 
 namespace Tanks.Vehicles
 {

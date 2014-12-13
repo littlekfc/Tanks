@@ -3,7 +3,6 @@ using UnityEngine.UI;
 using System.Collections;
 
 using Tanks.Battle;
-using Tanks.Attributes;
 
 namespace Tanks.UI
 {
