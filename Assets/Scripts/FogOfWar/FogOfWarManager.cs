@@ -19,13 +19,21 @@ namespace Tanks.FogOfWar
 
         public bool[][] m_Blocks;
 
+        public float m_DestroyGridLiftTime = 3;
+
+        public List<KeyValuePair<KeyValuePair<int, int>, float>> m_DestroyGrid;
+
         private int[][] m_VisibleCount;
 
         private Dictionary<TObject, List<KeyValuePair<int, int>>> m_ObjectsEyesight;
 
-        public MeshRenderer m_fogTexture;
+        public MeshRenderer m_FogTexture;
 
         private int[][] m_WeightCnt;
+
+        public float m_UpdataFogTextureInterval = 0.3f;
+
+        private float m_CurUpdataFogTextureTime;
 
         FogOfWarManager()
         {
@@ -51,6 +59,8 @@ namespace Tanks.FogOfWar
                     m_WeightCnt[i][j] = 0;
                 }
             }
+            m_DestroyGrid = new List<KeyValuePair<KeyValuePair<int, int>, float>>();
+            m_CurUpdataFogTextureTime = 0;
         }
 
         /// <summary>
@@ -75,7 +85,7 @@ namespace Tanks.FogOfWar
         protected override void Awake()
         {
             base.Awake();
-            m_fogTexture.material.mainTexture = new Texture2D(m_GridXCnt, m_GridYCnt, TextureFormat.Alpha8, false, true);
+            m_FogTexture.material.mainTexture = new Texture2D(m_GridXCnt, m_GridYCnt, TextureFormat.Alpha8, false, true);
             Color[] col = new Color[m_GridXCnt * m_GridYCnt];
             for (int i = 0; i < m_GridXCnt; i++)
                 for (int j = 0; j < m_GridYCnt; j++)
@@ -154,12 +164,50 @@ namespace Tanks.FogOfWar
                     m_VisibleCount[p.Key][p.Value]++;
                 }
             }
-            UpdateFogTexture();
+        }
+
+        public void PushDestroyObject(TObject obj)
+        {
+            if (m_ObjectsEyesight.ContainsKey(obj))
+            {
+                List<KeyValuePair<int, int>> rmGrids = m_ObjectsEyesight[obj];
+                foreach (KeyValuePair<int, int> p in rmGrids)
+                {
+                    if (p.Key < m_GridXCnt && p.Value < m_GridYCnt)
+                    {
+                        m_VisibleCount[p.Key][p.Value]--;
+                    }
+                    m_DestroyGrid.Add(new KeyValuePair<KeyValuePair<int, int>, float>(p, m_DestroyGridLiftTime));
+                }
+                m_ObjectsEyesight.Remove(obj);
+            }
+
+        }
+
+        private void Update()
+        {
+            m_CurUpdataFogTextureTime += Time.deltaTime;
+            if (m_CurUpdataFogTextureTime > m_UpdataFogTextureInterval)
+            {
+                m_CurUpdataFogTextureTime = 0;
+                UpdateFogTexture();
+            }
+            for (int i = 0; i < m_DestroyGrid.Count;)
+            {
+                if (m_DestroyGrid[i].Value - Time.deltaTime > 0)
+                {
+                    m_DestroyGrid[i] = new KeyValuePair<KeyValuePair<int, int>, float>(m_DestroyGrid[i].Key, m_DestroyGrid[i].Value - Time.deltaTime);
+                    i++;
+                }
+                else
+                    m_DestroyGrid.RemoveAt(i);
+            }
+
         }
 
         private void UpdateFogTexture()
         {
-            Texture2D fog = m_fogTexture.material.mainTexture as Texture2D;
+            Texture2D fog = m_FogTexture.material.mainTexture as Texture2D;
             Color[] col = new Color[fog.height * fog.width];
             for (int i = 0; i < fog.width; i ++)
             {
@@ -176,6 +224,12 @@ namespace Tanks.FogOfWar
                     col[(fog.height - 1 - j) * fog.width + fog.width - 1 - i] =
                         m_VisibleCount[i * m_GridXCnt / fog.width][j * m_GridYCnt / fog.height] > 0 ? new Color(0, 0, 0, 0) : new Color(0, 0, 0, 1);
                 }
+            }
+            foreach (KeyValuePair<KeyValuePair<int, int>, float> p in m_DestroyGrid)
+            {
+                col[(fog.height - 1 - p.Key.Key) * fog.width + fog.width - 1 - p.Key.Value].a -= p.Value / m_DestroyGridLiftTime;
+                if (col[(fog.height - 1 - p.Key.Key) * fog.width + fog.width - 1 - p.Key.Value].a < 0.0f)
+                    col[(fog.height - 1 - p.Key.Key) * fog.width + fog.width - 1 - p.Key.Value].a = 0.0f;
             }
             for (int i = 0; i < fog.width; i ++)
             {
@@ -210,6 +264,5 @@ namespace Tanks.FogOfWar
             fog.SetPixels(col);
             fog.Apply();
         }
-
     }
 }

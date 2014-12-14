@@ -47,5 +47,11 @@ namespace Tanks
                 EventUtils.Emit(onOwnerChanged, owner);
             }
         }
+
+        virtual protected void OnDestroy()
+        {
+            if (FogOfWarManager.Instance)
+                FogOfWarManager.Instance.PushDestroyObject(this);
+        }
     }
 }
