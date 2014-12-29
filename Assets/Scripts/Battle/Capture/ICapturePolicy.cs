@@ -10,8 +10,6 @@ namespace Tanks.Battle.Capture
     {
         event Action<Team.TeamID> onCaptured;
 
-        void BeginCapturing(ICaptor captor);
-
-        void EndCapturing(ICaptor captor);
+        void CaptureBy(ICaptor captor);
     }
 }

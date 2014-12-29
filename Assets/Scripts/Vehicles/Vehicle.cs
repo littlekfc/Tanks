@@ -358,7 +358,7 @@ namespace Tanks.Vehicles
             rigidbody.isKinematic = !CachedPhotonView.isMine;
         }
 
-        protected void OnDestroy()
+        protected virtual void OnDestroy()
         {
             EventUtils.Emit(onKilled);
             base.OnDestroy();

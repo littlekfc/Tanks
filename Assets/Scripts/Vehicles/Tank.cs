@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 using Tanks.Battle.Capture;
 
@@ -30,6 +31,23 @@ namespace Tanks.Vehicles
                 var accelerating_dir = Mathf.Abs(local_dir.z) > 0.0f ? Mathf.Sign(local_dir.z) : 0.0f;
                 currentAcceleration = accelerating_dir * acceleration;
             }
+        }
+
+        /**
+         * TODO: Create a base class for captor vehicles and move the following code into it.
+         **/
+        private ICollection<ICapturable> capturingObjects = new List<ICapturable>();
+        public ICollection<ICapturable> CapturingObjects
+        {
+            get { return capturingObjects; }
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            foreach (var o in CapturingObjects)
+                o.EndCapturing(this);
         }
     }
 }

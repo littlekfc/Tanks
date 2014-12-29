@@ -11,7 +11,7 @@ namespace Tanks.Battle.Capture
             ICaptor captor = GetCaptorFrom(other);
             if (captor != null)
             {
-                ActivationTarget.CapturePolicy.BeginCapturing(captor);
+                ActivationTarget.BeginCapturing(captor);
             }
         }
 
@@ -20,7 +20,7 @@ namespace Tanks.Battle.Capture
             ICaptor captor = GetCaptorFrom(other);
             if (captor != null)
             {
-                ActivationTarget.CapturePolicy.EndCapturing(captor);
+                ActivationTarget.EndCapturing(captor);
             }
         }
 
