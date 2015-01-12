@@ -21,16 +21,16 @@ namespace Tanks.Vehicles
                 local_dir = direction;
             }
 
-            if (Mathf.Abs(local_dir.x) > 0.0f)
+            if (Mathf.Abs(local_dir.x) > 0.0f && Mathf.Abs(CurrentSpeed) > 0.0f)
             {
-                targetVehicleTurningAngle = VehicleOrientation.eulerAngles.y + Mathf.Sign(local_dir.x) * vehicleTurningSpeed * Time.deltaTime;
-                currentAcceleration = 0.0f;
+                var velocity_dir = Mathf.Sign(CurrentSpeed);
+                var turning_dir = Mathf.Sign(local_dir.x);
+                targetVehicleOrientation = VehicleOrientation * Quaternion.AngleAxis(
+                    turning_dir * velocity_dir * VehicleTurningSpeed * Time.deltaTime, CachedTransform.up);
             }
-            else
-            {
-                var accelerating_dir = Mathf.Abs(local_dir.z) > 0.0f ? Mathf.Sign(local_dir.z) : 0.0f;
-                currentAcceleration = accelerating_dir * acceleration;
-            }
+
+            var accelerating_dir = Mathf.Abs(local_dir.z) > 0.0f ? Mathf.Sign(local_dir.z) : 0.0f;
+            currentAcceleration = accelerating_dir * acceleration;
         }
 
         /**

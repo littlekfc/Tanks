@@ -55,9 +55,9 @@ namespace Tanks.Vehicles
         protected float currentAcceleration = 0.0f;
 
         /// <summary>
-        /// The target vehicle turning angle in world coordinate.
+        /// The target vehicle turning orientation in world coordinate.
         /// </summary>
-        protected float targetVehicleTurningAngle = 0.0f;
+        protected Quaternion targetVehicleOrientation = Quaternion.identity;
 
         /// <summary>
         /// The target weapon orientation in world coordinate.
@@ -246,7 +246,7 @@ namespace Tanks.Vehicles
 
         public void CancelMoving()
         {
-            targetVehicleTurningAngle = VehicleOrientation.eulerAngles.y;
+            targetVehicleOrientation = VehicleOrientation;
         }
 
         public void Brake()
@@ -270,7 +270,7 @@ namespace Tanks.Vehicles
             currentSpeed = 0.0f;
             currentAcceleration = 0.0f;
 
-            targetVehicleTurningAngle = VehicleOrientation.eulerAngles.y;
+            targetVehicleOrientation = VehicleOrientation;
             targetWeaponOrientation = WeaponOrientation;
 
             isBraking = false;
@@ -348,7 +348,7 @@ namespace Tanks.Vehicles
 
         private void Awake()
         {
-            targetVehicleTurningAngle = VehicleOrientation.eulerAngles.y;
+            targetVehicleOrientation = VehicleOrientation;
             targetWeaponOrientation = WeaponOrientation;
 
             CurrentHealth = MaxHealth;
@@ -358,7 +358,7 @@ namespace Tanks.Vehicles
             rigidbody.isKinematic = !CachedPhotonView.isMine;
         }
 
-        protected virtual void OnDestroy()
+        protected override void OnDestroy()
         {
             EventUtils.Emit(onKilled);
             base.OnDestroy();
@@ -403,16 +403,8 @@ namespace Tanks.Vehicles
 
         private void TurnVehicle()
         {
-            var delta_angle = targetVehicleTurningAngle - VehicleOrientation.eulerAngles.y;
-            var abs_delta_angle = Mathf.Abs(delta_angle);
-
-            if (abs_delta_angle > 0.0f)
-            {
-                var turning_angle = Mathf.Sign(delta_angle) * vehicleTurningSpeed * Time.fixedDeltaTime;
-                turning_angle = Mathf.Clamp(turning_angle, -abs_delta_angle, abs_delta_angle);
-
-                bodyObject.Rotate(Vector3.up, turning_angle, Space.World);
-            }
+            var turning_angle = VehicleTurningSpeed * Time.fixedDeltaTime;
+            VehicleOrientation = Quaternion.RotateTowards(VehicleOrientation, targetVehicleOrientation, turning_angle);
         }
 
         private void TurnWeapon()
