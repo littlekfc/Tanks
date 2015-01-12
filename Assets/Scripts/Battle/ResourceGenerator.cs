@@ -3,18 +3,22 @@ using System.Collections;
 
 using Tanks.Players;
 using Tanks.Resources;
+using Tanks.Battle.Capture;
 
 namespace Tanks.Battle
 {
-    public class ResourceGenerator : TObject
+    public class ResourceGenerator : CapturableObject
     {
         private Timer generationTimer = null;
 
         public Resource generatingResource = new Resource();
         public float speed = 1.0f;
+        public ParticleSystem colorEffect;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             if (speed > 0.0f)
             {
                 generationTimer = AddComponent<Timer>();
@@ -32,6 +36,9 @@ namespace Tanks.Battle
                 generationTimer.enabled = true;
             else
                 generationTimer.enabled = false;
+
+            if (colorEffect != null)
+                colorEffect.startColor = Team.GetColorFor(owner);
         }
 
         private void OnResourceGenerated()

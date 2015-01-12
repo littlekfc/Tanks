@@ -8,6 +8,6 @@ namespace Tanks.Battle.Capture
 {
     public interface ICaptorSelectionPolicy
     {
-        ICaptor SelectCaptorFrom(IDictionary<Team.TeamID, ICollection<ICaptor>> captors);
+        ICaptor SelectCaptorFrom(IEnumerable<CapturableObject.CaptorList> captorLists);
     }
 }

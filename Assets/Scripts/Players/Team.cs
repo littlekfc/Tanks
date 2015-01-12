@@ -15,6 +15,19 @@ namespace Tanks.Players
 
         public TeamID ID { get; set; }
 
-        //public 
+        public static Color GetColorFor(TeamID team)
+        {
+            switch (team)
+            {
+                case TeamID.BLUE:
+                    return Color.blue;
+
+                case TeamID.RED:
+                    return Color.red;
+
+                default:
+                    return Color.white;
+            }
+        }
     }
 }

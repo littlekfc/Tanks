@@ -9,11 +9,11 @@ namespace Tanks.Battle.Capture
 {
     public class SimpleCaptorSelectionPolicy : CaptorSelectionPolicy
     {
-        public override ICaptor SelectCaptorFrom(IDictionary<Team.TeamID, ICollection<ICaptor>> captors)
+        public override ICaptor SelectCaptorFrom(IEnumerable<CapturableObject.CaptorList> captorLists)
         {
-            if (captors != null && captors.Count == 1)
+            if (captorLists != null && captorLists.Count() == 1)
             {
-                var captor_list = captors.Single().Value;
+                var captor_list = captorLists.Single().captors;
                 if (captor_list != null)
                 {
                     return captor_list.FirstOrDefault();

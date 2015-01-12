@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Tanks.Players;
 using Tanks.Resources;
 using Tanks.UI;
+using Tanks.Vehicles;
 
 namespace Tanks.Battle
 {
@@ -48,7 +49,9 @@ namespace Tanks.Battle
             {
                 var spawn_point = my_spawn_points.Current;
 
-                PhotonNetwork.Instantiate(vehiclePrefab.name, spawn_point.transform.position, spawn_point.transform.rotation, 0);
+                var my_vehicle = PhotonNetwork.Instantiate(
+                    vehiclePrefab.name, spawn_point.transform.position, spawn_point.transform.rotation, 0).GetComponent<Vehicle>();
+                my_vehicle.Owner = MyTeamID;
             }
 
             var init_resource = new Resource
