@@ -16,7 +16,7 @@ namespace Tanks.Networking
         public event Action onGameCancelled;
         public event Action onMatchingFailed;
 
-        private const int READY_PLAYER_COUNT = 2;
+        public int readyPlayerCount = 1;
 
         private PhotonView photonView;
 
@@ -64,10 +64,14 @@ namespace Tanks.Networking
         {
             Debug.Log("Joined!!!!!!!!!!! Current players: " + PhotonNetwork.room.playerCount);
 
-            if (PhotonNetwork.room.playerCount == READY_PLAYER_COUNT && PhotonNetwork.isMasterClient)
+            if (PhotonNetwork.room.playerCount == readyPlayerCount && PhotonNetwork.isMasterClient)
             {
                 SetMyTeam(Team.TeamID.BLUE);
-                photonView.RPC("SetMyTeam", PhotonNetwork.otherPlayers[0], Team.TeamID.RED);
+
+                if (readyPlayerCount > 1)
+                    photonView.RPC("SetMyTeam", PhotonNetwork.otherPlayers[0], Team.TeamID.RED);
+                else
+                    OnGameReady();
             }
         }
 
